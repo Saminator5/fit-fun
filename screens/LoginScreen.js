@@ -73,7 +73,7 @@ export default class LoginScreen extends React.Component {
                       </Item>
 
                       <View style={{paddingTop: 15}}>
-                        <Button block success>
+                        <Button block style={{backgroundColor: '#0C7C59'}}>
                           <Text>Log In</Text>
                         </Button>
                       </View>

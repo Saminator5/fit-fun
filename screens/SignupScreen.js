@@ -75,7 +75,7 @@ export default class LoginScreen extends React.Component {
                       <Item stackedLabel last style={{backgroundColor: 'white',
                       opacity: 0.75}}>
                         <Label style={{color: 'black', fontWeight: 'bold'}}>Password</Label>
-                        <Input />
+                        <Input secureTextEntry={true}/>
                       </Item>
 
                       <Item stackedLabel last style={{backgroundColor: 'white',
@@ -85,8 +85,8 @@ export default class LoginScreen extends React.Component {
                       </Item>
 
                       <View style={{paddingTop: 15}}>
-                        <Button block success>
-                          <Text>Log In</Text>
+                        <Button block style={{backgroundColor: '#0C7C59'}}>
+                          <Text>Sign Up</Text>
                         </Button>
                       </View>
                     </Form>

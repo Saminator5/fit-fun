@@ -10,26 +10,29 @@ import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
-
-
+import BrowseScreen from '../screens/BrowseScreen';
+import CreateGroupScreen from '../screens/CreateGroupScreen';
 
 export default TabNavigator(
   {
     Home: {
       screen: HomeScreen,
     },
-    Links: {
-      screen: LinksScreen,
+    Browse: {
+      screen: BrowseScreen,
     },
-    Settings: {
-      screen: SettingsScreen,
-    },
+
     Login: {
       screen: LoginScreen,
     },
-    Signup: {
+
+    SignUp: {
       screen: SignupScreen,
     },
+
+    CreateGroup: {
+      screen: CreateGroupScreen,
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -43,15 +46,12 @@ export default TabNavigator(
                 ? `ios-information-circle${focused ? '' : '-outline'}`
                 : 'md-information-circle';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'Browse':
+            iconName = Platform.OS === 'ios' ? `ios-glasses${focused ? '' : '-outline'}` : 'md-login';
             break;
-          case 'Login':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-login';
+          case 'CreateGroup':
+            iconName = Platform.OS === 'ios' ? `ios-contacts${focused ? '' : '-outline'}` : 'md-contacts';
             break;
-          case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-login';
         }
         return (
           <Ionicons
