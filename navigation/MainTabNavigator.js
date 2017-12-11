@@ -15,12 +15,8 @@ import CreateGroupScreen from '../screens/CreateGroupScreen';
 
 export default TabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
-    },
-    Browse: {
-      screen: BrowseScreen,
-    },
+
+
 
     Login: {
       screen: LoginScreen,
@@ -30,7 +26,13 @@ export default TabNavigator(
       screen: SignupScreen,
     },
 
-    CreateGroup: {
+    Browse: {
+      screen: BrowseScreen,
+    },
+
+
+
+    CreateTournament: {
       screen: CreateGroupScreen,
     }
   },
@@ -40,16 +42,16 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Home':
-            iconName =
-              Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
+          case 'Login':
+            iconName = Platform.OS === 'ios' ? `ios-baseball${focused ? '' : '-outline'}` : 'md-login';
+            break;
+          case 'SignUp':
+            iconName = Platform.OS === 'ios' ? `ios-body${focused ? '' : '-outline'}` : 'ion-android-bicycle';
             break;
           case 'Browse':
             iconName = Platform.OS === 'ios' ? `ios-glasses${focused ? '' : '-outline'}` : 'md-login';
             break;
-          case 'CreateGroup':
+          case 'CreateTournament':
             iconName = Platform.OS === 'ios' ? `ios-contacts${focused ? '' : '-outline'}` : 'md-contacts';
             break;
         }

@@ -30,7 +30,7 @@ export default class CreateGroup extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Create Group',
+    title: 'Create Tourney',
   };
 
   switchValue(){
@@ -157,7 +157,7 @@ export default class CreateGroup extends React.Component {
 
                     <View style={{paddingTop: 105}}>
                       <Button block style={{backgroundColor: '#545D5E'}}>
-                        <Text>Create Group</Text>
+                        <Text>Create Tourney</Text>
                       </Button>
                     </View>
                   </Form>
