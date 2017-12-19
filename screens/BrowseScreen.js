@@ -26,7 +26,7 @@ export default class BrowseScreen extends React.Component {
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
-          <Segment >
+          <Segment>
             <Button style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} first><Text style={{color: '#394648'}}>Friends</Text></Button>
             <Button style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}}><Text style={{color: '#394648'}}>Public</Text></Button>
             <Button style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} last><Text style={{color: '#394648'}}>Nearby</Text></Button>

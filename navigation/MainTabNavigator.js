@@ -12,29 +12,18 @@ import LoginScreen from '../screens/LoginScreen';
 import SignupScreen from '../screens/SignupScreen';
 import BrowseScreen from '../screens/BrowseScreen';
 import CreateGroupScreen from '../screens/CreateGroupScreen';
+import HistoryScreen from '../screens/HistoryScreen';
+import ActivityScreen from '../screens/ActivityScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import GroupScreen from '../screens/GroupScreen';
+import InfoScreen from '../screens/InfoScreen';
+import CreateScreen from '../screens/CreateScreen';
 
 export default TabNavigator(
   {
-
-
-
-    Login: {
-      screen: LoginScreen,
+    Create: {
+      screen: CreateScreen
     },
-
-    SignUp: {
-      screen: SignupScreen,
-    },
-
-    Browse: {
-      screen: BrowseScreen,
-    },
-
-
-
-    CreateTournament: {
-      screen: CreateGroupScreen,
-    }
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -42,17 +31,17 @@ export default TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Login':
-            iconName = Platform.OS === 'ios' ? `ios-baseball${focused ? '' : '-outline'}` : 'md-login';
-            break;
-          case 'SignUp':
-            iconName = Platform.OS === 'ios' ? `ios-body${focused ? '' : '-outline'}` : 'ion-android-bicycle';
+          case 'Home':
+            iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
             break;
           case 'Browse':
-            iconName = Platform.OS === 'ios' ? `ios-glasses${focused ? '' : '-outline'}` : 'md-login';
+            iconName = Platform.OS === 'ios' ? `ios-people${focused ? '' : '-outline'}` : 'md-people';
             break;
-          case 'CreateTournament':
-            iconName = Platform.OS === 'ios' ? `ios-contacts${focused ? '' : '-outline'}` : 'md-contacts';
+          case 'Create':
+            iconName = Platform.OS === 'ios' ? `ios-add${focused ? '' : '-outline'}` : 'md-add';
+            break;
+          case 'Profile':
+            iconName = Platform.OS === 'ios' ? `ios-person${focused ? '' : '-outline'}` : 'md-person';
             break;
         }
         return (

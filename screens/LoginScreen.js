@@ -1,20 +1,64 @@
 import React from 'react';
-import {
-  Image,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  TextInput,
-} from 'react-native';
+import { Image, View, Alert } from 'react-native';
 
-import { ExpoConfigView } from '@expo/samples';
-import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail } from 'native-base';
+import { Container, Content, Button, Text, Item, Input, Form, Label} from 'native-base'; // 2.3.5
+
+import { Facebook } from "expo";
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
     title: 'Login',
+  };
+
+  _handleButtonPress = () => {
+    Alert.alert(
+      'Button pressed!',
+      'You did it!',
+    );
+  };
+
+  _handleFacebookLogin = async () => {
+    try {
+      const { type, token, expires } = await Facebook.logInWithReadPermissionsAsync(
+        '136503423723798', // Replace with your own app id in standalone app
+        { permissions: ['public_profile', 'email', 'user_friends'] }
+      );
+
+      switch (type) {
+        case 'success': {
+          // Get the user's name using Facebook's Graph API
+          const response = await fetch('http://fit-fun.herokuapp.com/auth/signInUp', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              token: token,
+            }),
+          });
+
+          const res = await response.json();
+          console.log('res: ', res)
+          break;
+        }
+        case 'cancel': {
+          Alert.alert(
+            'Cancelled!',
+            'Login was cancelled!',
+          );
+          break;
+        }
+        default: {
+          Alert.alert(
+            'Oops!',
+            'Login failed sam!',
+          );
+        }
+      }
+    } catch (e) {
+      console.log('error: ', e)
+    }
   };
 
   render() {
@@ -35,23 +79,23 @@ export default class LoginScreen extends React.Component {
           }}
           >
             <Image
-            style={{
-              flex: 1,
-              resizeMode,
-              justifyContent: 'center',
-            }}
-            source={{uri: 'https://media.aws.iaaf.org/media/LargeL/5269cee8-be8a-4c3c-8ec1-9e784aecf6b2.jpg?v=1443549257'}}
-          />
+              style={{
+                flex: 1,
+                resizeMode,
+                justifyContent: 'center',
+              }}
+              source={{uri: 'https://media.aws.iaaf.org/media/LargeL/5269cee8-be8a-4c3c-8ec1-9e784aecf6b2.jpg?v=1443549257'}}
+            />
           </View>
-        <Content style={{flex: 1}}>
+          <Content style={{flex: 1}}>
 
-          <View
-            style={{
-              flex: 1,
-              width: '100%',
-              height: '100%',
-            }}
-            >
+            <View
+              style={{
+                flex: 1,
+                width: '100%',
+                height: '100%',
+              }}
+              >
 
                 <View
                   style={{
@@ -61,13 +105,14 @@ export default class LoginScreen extends React.Component {
                   >
                     <Form>
                       <Item stackedLabel last style={{backgroundColor: 'white',
-                      opacity: 0.75}}>
+                        opacity: 0.75}}>
                         <Label style={{color: 'black', fontWeight: 'bold'}}>Username</Label>
                         <Input />
                       </Item>
 
+
                       <Item stackedLabel last style={{backgroundColor: 'white',
-                      opacity: 0.75}}>
+                        opacity: 0.75}}>
                         <Label style={{color: 'black', fontWeight: 'bold'}}>Password</Label>
                         <Input secureTextEntry={true}/>
                       </Item>
@@ -77,42 +122,22 @@ export default class LoginScreen extends React.Component {
                           <Text>Log In</Text>
                         </Button>
                       </View>
-                    </Form>
+
+                      <View style={{paddingTop: 10}}>
+                        <Button
+                          block
+                          onPress={this._handleFacebookLogin.bind(this)}
+                          >
+                            <Text>Login with Facebook</Text>
+                          </Button>
+                        </View>
+
+
+                      </Form>
+                    </View>
                   </View>
-                </View>
-              </Content>
-            </Container>
-          )
+                </Content>
+              </Container>
+            )
+          }
         }
-      }
-
-      const styles = StyleSheet.create({
-        container: {
-          flex: 1,
-          backgroundColor: 'skyblue',
-          justifyContent: 'center',
-          alignItems: 'center',
-        },
-
-        border: {
-          borderRadius: 4,
-          borderWidth: 2,
-          width: 300,
-          height: 70,
-          borderColor: 'black',
-          backgroundColor: '#fafafa',
-          paddingTop: 10
-        },
-
-        input: {
-          height: 50,
-          width: 125,
-          borderColor: 'gray',
-          borderWidth: 1,
-          backgroundColor: 'white',
-          shadowColor: 'gray',
-          shadowOffset: { width: 0, height: 2 },
-          shadowOpacity: 0.8,
-          shadowRadius: 2,
-        }
-      })

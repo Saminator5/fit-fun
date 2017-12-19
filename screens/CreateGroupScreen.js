@@ -1,6 +1,8 @@
 import React from 'react';
 import Emoji from 'react-native-emoji';
 
+// Have them enter date picker
+
 import {
   Image,
   Platform,
@@ -13,24 +15,23 @@ import {
   Dimensions,
 
 } from 'react-native';
+import styles from '../styles.js'
 
 import { ExpoConfigView } from '@expo/samples';
 import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Switch, Segment } from 'native-base';
-
-
-const {width, height} = Dimensions.get('window')
 
 export default class CreateGroup extends React.Component {
   constructor() {
     super();
     this.state = {
       switchValue: false,
-      publicValue: true
+      publicValue: true,
+      state: ''
     }
   }
 
   static navigationOptions = {
-    title: 'Create Tourney',
+    title: 'Create Group',
   };
 
   switchValue(){
@@ -42,10 +43,37 @@ export default class CreateGroup extends React.Component {
     this.setState({publicValue: !this.state.publicValue})
   }
 
+  createGroup = async () => {
+    const date = new Date(2017, 11, 18); // when tourney will start
+    console.log('trying to create', date)
+
+  try {
+    const response = await fetch('http://fit-fun.herokuapp.com/new/group', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        public: this.state.publicValue,
+        name: 'first',
+        description: 'hello',
+        groupImg: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9d/Velma_Dinkley.png/150px-Velma_Dinkley.png',
+        startDate: date
+      }),
+    });
+
+    const res = response.json();
+    console.log('res: ', res)
+  } catch(e){
+    console.log('error: ', e)
+  }
+
+  }
+
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
-    console.log(width, height)
 
     const resizeMode = 'cover';
 
@@ -100,7 +128,7 @@ export default class CreateGroup extends React.Component {
                       <Picker
                         style={styles.picker} itemStyle={styles.pickerItem}
                         selectedValue={this.state.language}
-                        onValueChange={(itemValue) => this.setState({language: itemValue})}
+                        onValueChange={(itemValue) => this.setState({state: itemValue})}
                         >
                           <Picker.Item label="Alabama" value="Alabama" />
                           <Picker.Item label="Alaska" value="Alaska" />
@@ -156,7 +184,10 @@ export default class CreateGroup extends React.Component {
                     </View>
 
                     <View style={{paddingTop: 105}}>
-                      <Button block style={{backgroundColor: '#545D5E'}}>
+                      <Button block
+                        onPress={this.createGroup.bind(this)}
+                        style={{backgroundColor: '#545D5E'}}>
+
                         <Text>Create Tourney</Text>
                       </Button>
                     </View>
@@ -166,63 +197,3 @@ export default class CreateGroup extends React.Component {
               )
             }
           }
-
-          const styles = StyleSheet.create({
-            container: {
-              flex: 1,
-              flexDirection: 'column',
-              alignItems: 'center',
-              padding: 20,
-              backgroundColor: 'white',
-            },
-            title: {
-              fontSize: 15,
-              marginTop: 5,
-              marginBottom: 10,
-              marginLeft: 15,
-              color: '#545D5E'
-            },
-            picker: {
-              backgroundColor: 'white',
-              borderColor: '#101112',
-              borderWidth: 2,
-              marginLeft: 10,
-              marginRight: 10,
-              height: 100,
-            },
-            pickerItem: {
-              color: '#171A1A',
-              height: 100,
-            },
-            labels: {
-              fontSize: 15,
-              color: '#545D5E',
-            },
-            segment: {
-              backgroundColor: '#A3CDD3',
-              marginTop: 15
-            },
-
-            element: {
-              marginTop: 15,
-            },
-
-            phTextColor: {
-              color: '#828989'
-            },
-
-            phFontSize: {
-              fontSize: 20,
-              color: '#171A1A'
-
-            },
-
-            pGroup: {
-              marginLeft: 15,
-              marginTop: 5,
-              flexDirection: 'row',
-              alignItems: 'center',
-            },
-
-
-          });
