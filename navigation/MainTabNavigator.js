@@ -18,12 +18,25 @@ import ProfileScreen from '../screens/ProfileScreen';
 import GroupScreen from '../screens/GroupScreen';
 import InfoScreen from '../screens/InfoScreen';
 import CreateScreen from '../screens/CreateScreen';
+import MyGroupsScreen from '../screens/MyGroupsScreen';
 
 export default TabNavigator(
   {
+    Login: {
+      screen: LoginScreen
+    },
+
     Create: {
       screen: CreateScreen
     },
+
+    Profile: {
+      screen: ProfileScreen
+    },
+
+    Groups: {
+      screen: MyGroupsScreen
+    }
   },
   {
     navigationOptions: ({ navigation }) => ({

@@ -33,159 +33,62 @@ export default class ActivityScreen extends React.Component {
     * content, we just wanted to give you a quick view of your config */
     return (
 
-        <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
+        <View style={{flex: 1}}>
+          <View style={{alignItems: 'center', flex: 1}}>
+            <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2' }} />
+          </View>
           <View style={{flex: 1}}>
-            <View style={{alignItems: 'center'}}>
-              <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2' }} />
-            </View>
-            <View style={{flex: 7}}>
-              <List style={{marginBottom: 5}}>
-                <ListItem
-                  style={{backgroundColor: '#A3CDD3', borderColor: '#A3CDD3'}}>
-                  <View style={{marginRight: 7}}>
-                    <Icon ios='ios-person' android="md-person" />
-                  </View>
+            <List style={{flex: 1, marginBottom: 1, display: 'flex'}}>
+              <ListItem
+                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: 'black'}}>
+                <View>
                   <Text>
                     My Info
                   </Text>
-                </ListItem>
-                <ListItem
-                  style={{backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
-                  <View style={{marginRight: 7}}>
-                    <Icon ios='ios-contacts' android="md-contacts" />
-                  </View>
-                  <Text>
+                </View>
+                <View>
+                  <Icon ios='ios-person' android="md-person" style={{maxWidth: 22, fontSize: 22}} />
+                </View>
+              </ListItem>
+              <ListItem
+                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
+                  <Icon ios='ios-contacts' android="md-contacts" style={{maxWidth: 22, fontSize: 22}} />
+                  <Text style={{marginLeft: 5}}>
                     My Friends
                   </Text>
-                </ListItem>
+              </ListItem>
 
-                <ScrollView
-                  style={{borderWidth: 2, borderColor: 'black', marginLeft: 12}}
-                  horizontal={true}
-                  scrollEnabled={true}>
+              <ListItem
+                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
+                <Icon ios='ios-book' android="md-book" style={{maxWidth: 22, fontSize: 22}} />
+                <Text style={{marginLeft: 5}}>
+                  My History
+                </Text>
+              </ListItem>
+              <ListItem
+                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
+                <Icon ios='ios-people' android="md-people" style={{maxWidth: 22, fontSize: 22}}/>
+                <Text style={{marginLeft: 5}}>
+                  My Groups
+                </Text>
+              </ListItem>
 
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                  <View style={{paddingRight: 10}}>
-                    <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                      <Text ellipsizeMode='tail'
-                        numberOfLines={1}
-                        style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                  </View>
-                </ScrollView>
-
-                <ListItem
-                  style={{backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
-                    <View style={{marginRight: 10}}>
-                      <Icon ios='ios-book' android="md-book" />
-                    </View>
-                    <View style={{marginRight: 10}}>
-                      <Text>
-                        My History
-                      </Text>
-                    </View>
-                  </ListItem>
-                <ListItem
-                  style={{backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
-                  <View style={{marginRight: 10}}>
-                    <Icon ios='ios-people' android="md-people" />
-                  </View>
-                  <Text>
-                    My Groups
-                  </Text>
-                </ListItem>
-
-                <ListItem
-                  style={{backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
-                  <View style={{marginRight: 10}}>
-                    <Icon ios='ios-trophy' android="md-trophy" />
-                  </View>
-                  <Text>
+              <ListItem
+                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}
+                >
+                  <Icon ios='ios-trophy' android="md-trophy" style={{maxWidth: 22, fontSize: 22}}/>
+                  <Text style={{marginLeft: 5}}>
                     My Achievements
                   </Text>
                 </ListItem>
               </List>
             </View>
-
-            <Button full danger style={{marginTop: 10}}>
-              <Text>Logout</Text>
-            </Button>
+            <View style={{flex: 1}}>
+              <Button full danger>
+                <Text>Logout</Text>
+              </Button>
+            </View>
           </View>
         </Container>
       )
