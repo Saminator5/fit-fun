@@ -33,7 +33,7 @@ export default class BrowseScreen extends React.Component {
       });
 
       const res = await response.json();
-      console.log('PUBLIC: ', res.groups)
+      console.log('PUBLIC: ', res)
       this.setState({
         groups: res.groups
       })
@@ -49,8 +49,6 @@ export default class BrowseScreen extends React.Component {
   }
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-    * content, we just wanted to give you a quick view of your config */
     const resizeMode = 'cover';
     const _this = this;
     console.log(this.state.groups)
@@ -63,7 +61,10 @@ export default class BrowseScreen extends React.Component {
                 <Left>
                   <Thumbnail source={group.groupImg ? {uri: group.groupImg} : {uri: 'https://vignette.wikia.nocookie.net/scoobydoo/images/9/9d/Velma_Dinkley.png/revision/latest?cb=20160213120532'}} />
                   <Body style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between', alignItems: 'center'}}>
-                    <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
+                    <View style={{flexDirection: 'column'}}>
+                      <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
+                      <Text note>{group.description}</Text>
+                    </View>
                     <TouchableOpacity onPress={() => _this.goToGroup(group.id)}>
                       <Icon name='arrow-forward' />
                     </TouchableOpacity>

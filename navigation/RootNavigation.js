@@ -7,6 +7,7 @@ import registerForPushNotificationsAsync from '../api/registerForPushNotificatio
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import GroupScreen from '../screens/GroupScreen';
+import InfoScreen from '../screens/InfoScreen';
 
 const RootStackNavigator = StackNavigator(
   {
@@ -24,7 +25,10 @@ const RootStackNavigator = StackNavigator(
 
     GroupScreen: {
       screen: GroupScreen
-    }
+    },
+    InfoScreen: {
+      screen: InfoScreen
+    },
 
   },
   {

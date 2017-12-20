@@ -26,6 +26,9 @@ export default class GroupScreen extends React.Component {
       activities: true,
       members: false,
       winners: false,
+      activitiesArr: [],
+      membersArr: [],
+      winnersArr: [],
       group: {}
     }
   }
@@ -46,13 +49,28 @@ export default class GroupScreen extends React.Component {
       console.log('response: ', response)
 
       const res = await response.json();
-      console.log('group found: ', res)
+      console.log('group found: ', res.group)
       this.setState({
-        group: res
+        group: res.group
       })
     } catch(e){
       console.log('error: ', e)
     }
+
+    let activitiesArr = [];
+    let membersArr = [];
+
+    // NOTE could need fixing later (not wanting to this.setState in loop)
+    for(i = 0; i < this.state.group.users.length; i++){
+      const user = this.state.group.users[i];
+      activitiesArr = [...user.activities, ...activitiesArr]
+      let userInfo = {id: user.id, role: user.membership.role, username: user.username}
+      membersArr = [userInfo, ...membersArr];
+    }
+
+    this.setState({activitiesArr, membersArr})
+    console.log('activitiesArr: ', this.state.activitiesArr);
+    console.log('membersArr: ', this.state.membersArr);
   }
 
 render() {
@@ -65,7 +83,7 @@ render() {
           <CardItem>
             <View style={{flexDirection: 'row'}}>
               <View style={{flex: 1}}>
-                <Image style={{width: 80, height: 80, borderRadius: 40}} source={this.group.groupImg ? {uri: this.group.groupImg}: {uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale' }} />
+                <Image style={{width: 80, height: 80, borderRadius: 40}} source={this.group ? {uri: this.group.groupImg}: {uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale' }} />
               </View>
               <View style={{flex: 3, flexDirection: 'column'}}>
                 <Text style={{fontWeight: 'bold'}}>{this.state.group.name}</Text>

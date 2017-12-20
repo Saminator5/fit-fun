@@ -36,7 +36,7 @@ export default class ActivityScreen extends React.Component {
       const res = await response.json();
       console.log('res: ', res)
       this.setState({
-        user: res
+        user: res.user
       })
     }  catch (e) {
       console.log('error: ', e)
@@ -48,6 +48,13 @@ export default class ActivityScreen extends React.Component {
     header: null
   };
 
+  takeMeTo = (str) => {
+    // case for stuff to pass in
+    console.log('taking you to, ', str)
+    const { navigate } = this.props.navigation;
+    navigate(str)
+  }
+
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
@@ -56,13 +63,17 @@ export default class ActivityScreen extends React.Component {
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
         <View style={{flex: 1,  marginTop: 45}}>
           <View style={{alignItems: 'center', flex: 2, justifyContent: 'space-between'}}>
-            <Text style={{fontWeight: 'bold'}, styles.fontColor}>
-              Emma Paschke
-            </Text>
-            <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2' }} />
+              {this.state.user.username ? <Text style={{fontWeight: 'bold'}, styles.fontColor}>  {this.state.user.username}  </Text> : <Text>Loading...</Text>}
+
+            {this.state.user.img ?
+              <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: this.state.user.img }}/>
+                                 :
+              <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2'}} />
+            }
           </View>
           <List style={{flex: 3, marginBottom: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
             <ListItem
+              onPress={() => {this.takeMeTo('InfoScreen')}}
               style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: 'black'}}>
               <Text style={styles.fontColor}>
                 My Info

@@ -17,7 +17,7 @@ import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Labe
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 
-export default class ActivityScreen extends React.Component {
+export default class InfoScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,6 +27,7 @@ export default class ActivityScreen extends React.Component {
       edit: false
     }
   }
+
 
   static navigationOptions = {
     header: null

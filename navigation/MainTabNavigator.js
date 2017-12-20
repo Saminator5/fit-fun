@@ -36,7 +36,10 @@ export default TabNavigator(
 
     Groups: {
       screen: MyGroupsScreen
-    }
+    },
+
+
+
   },
   {
     navigationOptions: ({ navigation }) => ({
