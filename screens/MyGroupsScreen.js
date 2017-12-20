@@ -14,6 +14,7 @@ import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Labe
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 
+
 export default class BrowseScreen extends React.Component {
   constructor() {
     super();
@@ -22,30 +23,36 @@ export default class BrowseScreen extends React.Component {
     }
   }
   static navigationOptions = {
-    title: 'Groups',
+    header: null
   };
 
   componentWillMount = async () => {
     try {
-      const response = await fetch('http://fit-fun.herokuapp.com/search/active', {
+      const response = await fetch('http://fit-fun.herokuapp.com/search/public', {
         method: 'GET'
       });
 
       const res = await response.json();
-      console.log('res.groups', res.groups)
+      console.log('PUBLIC: ', res.groups)
       this.setState({
         groups: res.groups
       })
-      console.log('res: ', res)
     } catch(e){
       console.log('error: ', e)
     }
+  }
+
+  goToGroup = (id) => {
+    console.log('going...')
+    const { navigate } = this.props.navigation;
+    navigate('GroupScreen', {id: id})
   }
 
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
     const resizeMode = 'cover';
+    const _this = this;
     console.log(this.state.groups)
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
@@ -54,10 +61,12 @@ export default class BrowseScreen extends React.Component {
             return <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
               <CardItem>
                 <Left>
-                  <Thumbnail source={{uri: this.groupImg}} />
-                  <Body>
-                    <Text style={{fontWeight: 'bold'}}>{this.name}</Text>
-                    <Text style={{fontSize: 10}} note>San Francisco</Text>
+                  <Thumbnail source={group.groupImg ? {uri: group.groupImg} : {uri: 'https://vignette.wikia.nocookie.net/scoobydoo/images/9/9d/Velma_Dinkley.png/revision/latest?cb=20160213120532'}} />
+                  <Body style={{display: 'flex', flexDirection:'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                    <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
+                    <TouchableOpacity onPress={() => _this.goToGroup(group.id)}>
+                      <Icon name='arrow-forward' />
+                    </TouchableOpacity>
                   </Body>
                 </Left>
               </CardItem>
@@ -69,7 +78,6 @@ export default class BrowseScreen extends React.Component {
                   flexDirection: 'row',
                   flexWrap: 'wrap',
                   flex: 1}}>
-
                   <Grid style={{height: 70}}>
                     <Row size={33}>
                       <Col>
@@ -109,10 +117,10 @@ export default class BrowseScreen extends React.Component {
                   </Grid>
                 </CardItem>
 
-                <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                  <Body>
-                    <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                    <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
+                <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 0.5}}>
+                  <Body style={{justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
+                    <Text style={{textAlign: 'center'}}>{`${group.members ? group.members : 32} members`}</Text>
+                    <Text style={{textAlign: 'center', color: 'green'}}>{`Ongoing`}</Text>
                   </Body>
                 </CardItem>
               </View>

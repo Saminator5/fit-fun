@@ -24,7 +24,7 @@ export default class ActivityScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Home',
+    header: null
   };
 
   render() {

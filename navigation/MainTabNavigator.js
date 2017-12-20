@@ -22,12 +22,12 @@ import MyGroupsScreen from '../screens/MyGroupsScreen';
 
 export default TabNavigator(
   {
-    Login: {
-      screen: LoginScreen
-    },
-
     Create: {
       screen: CreateScreen
+    },
+
+    Browse: {
+      screen: BrowseScreen
     },
 
     Profile: {

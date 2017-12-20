@@ -93,7 +93,7 @@ export default class CreateScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Create',
+    header: null
   };
 
   render() {

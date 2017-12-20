@@ -51,7 +51,7 @@ export default class ActivityScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'Activity',
+    header: null
   };
 
   render() {

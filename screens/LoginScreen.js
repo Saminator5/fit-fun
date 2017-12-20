@@ -4,10 +4,11 @@ import { Image, View, Alert } from 'react-native';
 import { Container, Content, Button, Text, Item, Input, Form, Label} from 'native-base'; // 2.3.5
 
 import { Facebook } from "expo";
+import MainTabNavigator from '../navigation/MainTabNavigator';
 
 export default class LoginScreen extends React.Component {
   static navigationOptions = {
-    title: 'Login',
+    header: null
   };
 
   _handleButtonPress = () => {
@@ -64,6 +65,7 @@ export default class LoginScreen extends React.Component {
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
+    const { navigate } = this.props.navigation;
     const resizeMode = 'cover';
 
     return (
@@ -118,7 +120,9 @@ export default class LoginScreen extends React.Component {
                       </Item>
 
                       <View style={{paddingTop: 15}}>
-                        <Button block style={{backgroundColor: '#0C7C59'}}>
+                        <Button block style={{backgroundColor: '#0C7C59'}}
+                          onPress={() =>  navigate('MainTabNavigator')}
+                          >
                           <Text>Log In</Text>
                         </Button>
                       </View>

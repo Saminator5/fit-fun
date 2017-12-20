@@ -43,7 +43,18 @@ export default styles = StyleSheet.create({
   },
 
   phTextColor: {
-    color: '#828989'
+    color:  '#234549'
+  },
+
+  fontColor: {
+    color:  '#234549',
+    fontSize: 20
+  },
+
+  icons: {
+    maxWidth: 30,
+    fontSize: 23,
+    color:  '#234549'
   },
 
   phFontSize: {

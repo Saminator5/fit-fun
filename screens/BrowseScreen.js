@@ -19,6 +19,19 @@ export default class BrowseScreen extends React.Component {
     title: 'Browse',
   };
 
+  constructor() {
+    super();
+    this.state = {
+      groups: []
+    }
+  }
+
+  componentWillMount = async () => {
+    console.log('hello')
+
+  }
+
+
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */

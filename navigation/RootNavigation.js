@@ -4,12 +4,28 @@ import { StackNavigator } from 'react-navigation';
 
 import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+import LoginScreen from '../screens/LoginScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import GroupScreen from '../screens/GroupScreen';
 
 const RootStackNavigator = StackNavigator(
   {
-    Main: {
-      screen: MainTabNavigator,
+    Login: {
+      screen: LoginScreen
     },
+
+    Profile: {
+      screen: ProfileScreen
+    },
+
+    MainTabNavigator: {
+      screen: MainTabNavigator
+    },
+
+    GroupScreen: {
+      screen: GroupScreen
+    }
+
   },
   {
     navigationOptions: () => ({

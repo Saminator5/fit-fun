@@ -16,7 +16,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 
 export default class HistoryScreen extends React.Component {
   static navigationOptions = {
-    title: 'History',
+    header: null
   };
 
   render() {
