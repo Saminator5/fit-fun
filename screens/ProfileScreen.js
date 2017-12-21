@@ -15,31 +15,13 @@ import styles from '../styles.js'
 import { ExpoConfigView } from '@expo/samples';
 import { List, ListItem, Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Segment, Card, CardItem, Left, Body, Right } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
-const {width, height} = Dimensions.get('window')
-
 
 export default class ActivityScreen extends React.Component {
+
   constructor() {
     super();
     this.state = {
       user: {}
-    }
-  }
-
-  componentWillMount = async () => {
-    try {
-      const response = await fetch('http://fit-fun.herokuapp.com/edit/user', {
-        method: 'POST',
-        body: JSON.stringify({}),
-      });
-
-      const res = await response.json();
-      console.log('res: ', res)
-      this.setState({
-        user: res.user
-      })
-    }  catch (e) {
-      console.log('error: ', e)
     }
   }
 
@@ -49,10 +31,25 @@ export default class ActivityScreen extends React.Component {
   };
 
   takeMeTo = (str) => {
-    // case for stuff to pass in
-    console.log('taking you to, ', str)
-    const { navigate } = this.props.navigation;
-    navigate(str)
+    this.props.navigation.navigate(str)
+  }
+
+  logout = async () => {
+    try {
+      const response = await fetch('http://fit-fun.herokuapp.com/auth/logout', {
+        method: 'GET',
+      });
+
+      const res = await response.json();
+      console.log('logout response: ', res)
+
+      if(res.success){
+        console.log('taking you to login..');
+        this.props.navigation.navigate('GroupScreen')
+      }
+    }  catch (e) {
+      console.log('error: ', e)
+    }
   }
 
   render() {
@@ -63,7 +60,7 @@ export default class ActivityScreen extends React.Component {
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
         <View style={{flex: 1,  marginTop: 45}}>
           <View style={{alignItems: 'center', flex: 2, justifyContent: 'space-between'}}>
-              {this.state.user.username ? <Text style={{fontWeight: 'bold'}, styles.fontColor}>  {this.state.user.username}  </Text> : <Text>Loading...</Text>}
+              {this.props.navigation.state.params.user.user.username ? <Text style={{fontWeight: 'bold'}, styles.fontColor}>  {this.props.navigation.state.params.user.user.username}  </Text> : <Text>Loading...</Text>}
 
             {this.state.user.img ?
               <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: this.state.user.img }}/>
@@ -94,6 +91,7 @@ export default class ActivityScreen extends React.Component {
             </ListItem>
 
             <ListItem
+              // onPress={() => {this.takeMeTo('HistoryScreen')}}
               style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
               <Text style={styles.fontColor}>
                 My History
@@ -103,6 +101,7 @@ export default class ActivityScreen extends React.Component {
               </View>
             </ListItem>
             <ListItem
+              // onPress={() => {this.takeMeTo('MyGroupsScreen')}}
               style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
               <Text style={styles.fontColor}>
                 My Groups
@@ -124,7 +123,8 @@ export default class ActivityScreen extends React.Component {
               </ListItem>
             </List>
             <View style={{flex: 1, justifyContent: 'flex-end'}}>
-              <Button full danger style={{marginTop: 2}}>
+              <Button full danger style={{marginTop: 2}}
+                onPress={() => this.logout()}>
                 <Text>Logout</Text>
               </Button>
             </View>

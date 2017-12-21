@@ -41,6 +41,8 @@ export default class LoginScreen extends React.Component {
 
           const res = await response.json();
           console.log('res: ', res)
+          const { navigate } = this.props.navigation;
+          navigate('MainTabNavigator', {user: res})
           break;
         }
         case 'cancel': {
@@ -65,7 +67,7 @@ export default class LoginScreen extends React.Component {
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
-    const { navigate } = this.props.navigation;
+
     const resizeMode = 'cover';
 
     return (
@@ -105,28 +107,6 @@ export default class LoginScreen extends React.Component {
                     justifyContent: 'center',
                   }}
                   >
-                    <Form>
-                      <Item stackedLabel last style={{backgroundColor: 'white',
-                        opacity: 0.75}}>
-                        <Label style={{color: 'black', fontWeight: 'bold'}}>Username</Label>
-                        <Input />
-                      </Item>
-
-
-                      <Item stackedLabel last style={{backgroundColor: 'white',
-                        opacity: 0.75}}>
-                        <Label style={{color: 'black', fontWeight: 'bold'}}>Password</Label>
-                        <Input secureTextEntry={true}/>
-                      </Item>
-
-                      <View style={{paddingTop: 15}}>
-                        <Button block style={{backgroundColor: '#0C7C59'}}
-                          onPress={() =>  navigate('MainTabNavigator')}
-                          >
-                          <Text>Log In</Text>
-                        </Button>
-                      </View>
-
                       <View style={{paddingTop: 10}}>
                         <Button
                           block
@@ -135,9 +115,6 @@ export default class LoginScreen extends React.Component {
                             <Text>Login with Facebook</Text>
                           </Button>
                         </View>
-
-
-                      </Form>
                     </View>
                   </View>
                 </Content>

@@ -63,109 +63,98 @@ export default class GroupScreen extends React.Component {
     // NOTE could need fixing later (not wanting to this.setState in loop)
     for(i = 0; i < this.state.group.users.length; i++){
       const user = this.state.group.users[i];
-      activitiesArr = [...user.activities, ...activitiesArr]
+      console.log('user: ', user)
+      for(let j = 0; j < user.activities.length; j++){
+        const activity = user.activities[j];
+        console.log('activity: ', activity)
+        activitiesArr.push({username: user.username.split(' ')[0], name: activity.name, duration: activity.duration, rigor: activity.rigor, points: activity.points, completedAt: activity.createdAt })
+      }
       let userInfo = {id: user.id, role: user.membership.role, username: user.username}
       membersArr = [userInfo, ...membersArr];
     }
+
+    activitiesArr.sort((a, b) => {
+      return a.completedAt < b.completedAt
+    })
 
     this.setState({activitiesArr, membersArr})
     console.log('activitiesArr: ', this.state.activitiesArr);
     console.log('membersArr: ', this.state.membersArr);
   }
 
-render() {
+  render() {
 
-  return (
-    <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3'}} >
-      <View style={{display: 'flex', flex: 1}}>
-        <View style={{flex: 1/6, marginBottom: 10}}>
-        <Card style={{minHeight: 100, marginRight: 2, marginLeft: 2}}>
-          <CardItem>
-            <View style={{flexDirection: 'row'}}>
+    console.log('this.state.group.name: ', this.state.group.name);
+    console.log('this.state.group.description: ', this.state.group.description);
+
+    return (
+      <Container style={{display: 'flex', flexDirection: 'column', backgroundColor: '#A3CDD3'}} >
+        <View style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
+          <View style={{flex: 2}}>
+            <Card style={{minHeight: 100, marginRight: 2, marginLeft: 2, display: 'flex', flexDirection: 'row'}}>
               <View style={{flex: 1}}>
-                <Image style={{width: 80, height: 80, borderRadius: 40}} source={this.group ? {uri: this.group.groupImg}: {uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale' }} />
+                <Image style={{width: 80, height: 80, borderRadius: 40}} source={this.state.group.groupImg ? {uri: this.state.group.groupImg}: {uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale' }} />
               </View>
-              <View style={{flex: 3, flexDirection: 'column'}}>
-                <Text style={{fontWeight: 'bold'}}>{this.state.group.name}</Text>
+              <View style={{flex: 3, flexDirection: 'column', marginLeft: 2}}>
+                <Text style={{fontWeight: 'bold'}}>{this.state.group.name ? this.state.group.name : <Text>Loading...</Text>}</Text>
                 <Text style={{fontSize: 15, color: '#292929'}} note>{this.state.group.description}</Text>
               </View>
-            </View>
-          </CardItem>
-        </Card>
-      </View>
-      <View style={{flex: 1, marginTop: 20}}>
-        <View style={{flex: 1/2}}>
-        <Segment style={{backgroundColor: 'transparent'}}>
-          <Button
-            onPress={() => this.setState({
-              activities: true,
-              members: false,
-              winners: false
-            })}
-            style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}}
-            first>
-            <Text style={{color: '#394648'}}>Recent Activities</Text>
-          </Button>
-          <Button
-            onPress={() => this.setState({
-              activities: false,
-              members: true,
-              winners: false
-            })}
-            style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}}>
-            <Text style={{color: '#394648'}}>Members</Text>
-          </Button>
-          <Button
-            onPress={() => this.setState({
+            </Card>
+          </View>
+          <View style={{flex: 6}}>
+            <View>
+              <Segment style={{marginLeft: 1, marginRight: 1}}>
+                <Button first onPress={() => this.setState({
+                  activities: true,
+                  members: false,
+                  winners: false
+                })}>
+                <Text>Activities</Text>
+              </Button>
+              <Button onPress={() => this.setState({
+                activities: false,
+                members: true,
+                winners: false
+              })}>
+              <Text>Members</Text>
+            </Button>
+            <Button last onPress={() => this.setState({
               activities: false,
               members: false,
               winners: true
-            })}
-            style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} last>
-            <Text style={{color: '#394648'}}>Winners</Text>
+            })}>
+            <Text>Winners</Text>
           </Button>
         </Segment>
       </View>
       <View style={{flex: 4}}>
         <ScrollView>
           <View style={{flex: 4, borderColor: 'black', borderWidth: 1/2}}>
-          {this.state.activities &&
-            <View style={{flexDirection: 'column', flex: 1}}>
-              <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'https://i.imgur.com/RjXZTgw.jpg'}} />
-                    <Body>
-                      <Text style={{fontWeight: 'bold'}}>Samuel</Text>
-                      <Text>Ran 3 miles</Text>
-                      <Text note>12-06-17</Text>
-                    </Body>
-                  </Left>
-                  <View style={{display: 'flex', width: 50, alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row'}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>35</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: 10}}> pts</Text>
-                  </View>
-                </CardItem>
-              </Card>
-              <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'https://i.imgur.com/RjXZTgw.jpg'}} />
-                    <Body>
-                      <Text style={{fontWeight: 'bold'}}>Samuel</Text>
-                      <Text>Ran 3 miles</Text>
-                      <Text note>12-06-17</Text>
-                    </Body>
-                  </Left>
-                  <View style={{display: 'flex', width: 50, alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row'}}>
-                    <Text style={{fontWeight: 'bold', fontSize: 20}}>35</Text>
-                    <Text style={{fontWeight: 'bold', fontSize: 10}}> pts</Text>
-                  </View>
-                </CardItem>
-              </Card>
-            </View>
-          }
-
+          {this.state.activitiesArr.length !== 0 &&
+            this.state.activitiesArr.map((activity, id) => {
+              return <View key={id} style={{flexDirection: 'column', flex: 1}}>
+                <Card>
+                  <CardItem>
+                    <Left>
+                      <Thumbnail source={{uri: 'https://i.imgur.com/RjXZTgw.jpg'}} />
+                      <Body>
+                        <View style={{display: 'flex', flexDirection: 'row'}}>
+                          <Text style={{fontWeight: 'bold'}}>{activity.username}:</Text>
+                          <Text> {activity.name}</Text>
+                        </View>
+                        <Text>Intensity: {activity.rigor}</Text>
+                        <Text note>{activity.duration} minutes</Text>
+                      </Body>
+                    </Left>
+                    <View style={{display: 'flex', width: 50, alignItems: 'center', justifyContent: 'flex-end', flexDirection: 'row'}}>
+                      <Text style={{fontWeight: 'bold', fontSize: 20}}>{activity.points}</Text>
+                      <Text style={{fontWeight: 'bold', fontSize: 10}}> pts</Text>
+                    </View>
+                  </CardItem>
+                </Card>
+              </View>
+            })
+            }
 
           {this.state.members &&
             <View>

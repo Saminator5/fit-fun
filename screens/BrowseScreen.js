@@ -22,13 +22,48 @@ export default class BrowseScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      groups: []
+      groups: [],
+      // admin: 'Loading...',
+      publicValue: true
     }
   }
 
-  componentWillMount = async () => {
-    console.log('hello')
+  static navigationOptions = {
+    header: null
+  };
 
+  componentWillMount = async () => {
+    console.log('props: ', this.props)
+    console.log('will mount...')
+    try {
+      const response = await fetch('http://fit-fun.herokuapp.com/search/public', {
+        method: 'GET'
+      });
+
+      const res = await response.json();
+      console.log('PUBLIC: ', res.groups)
+      // let adminObj = res.groups.users.filter(user => user.membership.role === 'admin');
+      // const admin = adminObj.username;
+      this.setState({
+        groups: res.groups,
+        // admin
+      })
+    } catch(e){
+      console.log('error: ', e)
+    }
+  }
+
+  joinGroup = async (id) => {
+    console.log('id: ', id)
+    try {
+      const response = await fetch(`http://fit-fun.herokuapp.com/new/membership/${id}`, {
+        method: 'POST'
+      });
+
+      console.log('response: ', response)
+    } catch(e){
+      console.log('error: ', e)
+    }
   }
 
 
@@ -36,6 +71,7 @@ export default class BrowseScreen extends React.Component {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
     const resizeMode = 'cover';
+    console.log('length: ', this.state.groups.length)
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
@@ -50,407 +86,92 @@ export default class BrowseScreen extends React.Component {
             <Input style={{color: '#2F3A3B'}}  placeholderTextColor='#394648' placeholder='Search groups...'/>
           </Item>
 
-          <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                <Body>
-                  <Text style={{fontWeight: 'bold'}}>Nike Running</Text>
-                  <Text style={{fontSize: 10}} note>San Francisco</Text>
-                </Body>
-              </Left>
-            </CardItem>
+          {
+            this.state.groups.length ? this.state.groups.map((group, id) => {
+              return ( <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
+                <CardItem>
+                  <Left style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
+                    <View style={{flexDirection: 'column'}}>
+                      <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
+                      <Text style={{fontSize: 10}} note>{group.description}</Text>
+                    </View>
+                    <View>
+                      <TouchableOpacity
+                        onPress={() => this.joinGroup(id + 1)}>
+                        <Icon name='add-circle' />
+                      </TouchableOpacity>
+                    </View>
+                  </Left>
+                </CardItem>
 
-            <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-              <CardItem cardBody style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                flex: 1}}>
+                <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
+                  <CardItem cardBody style={{
+                    borderColor: 'grey',
+                    borderWidth: 0.2,
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                    flex: 1}}>
 
-                <Grid style={{height: 70}}>
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
+                    <Grid style={{height: 70}}>
+                      <Row size={33}>
+                        <Col>
+                          {/* group.users[0] ? {uri: group.users[0].img} :  */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                        <Col>
+                          {/* group.users[1] ? {uri: group.users[1].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                        <Col>
+                          {/* group.users[2] ? {uri: group.users[2].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                      </Row>
 
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
+                      <Row size={33}>
+                        <Col>
+                          {/* group.users[3] ? {uri: group.users[3].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                        <Col>
+                          {/* group.users[4] ? {uri: group.users[4].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                        <Col>
+                          {/* group.users[5] ? {uri: group.users[5].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                      </Row>
 
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-                </Grid>
-              </CardItem>
+                      <Row size={33}>
+                        <Col>
+                          {/* group.users[6] ? {uri: group.users[6].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                        <Col>
+                          {/* group.users[7] ? {uri: group.users[7].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                        <Col>
+                          {/* group.users[8] ? {uri: group.users[8].img} : */}
+                          <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
+                        </Col>
+                      </Row>
+                    </Grid>
+                  </CardItem>
 
-              <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                <Body>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
-                </Body>
-              </CardItem>
-            </View>
-          </Card>
+                  <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 0.5}}>
+                    <Body>
+                      {/* <Text>{group.users.length} members</Text> */}
+                      {/* <Text>Created by {this.state.admin}</Text> */}
+                    </Body>
+                  </CardItem>
+                </View>
+              </Card>
 
-          <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                <Body>
-                  <Text style={{fontWeight: 'bold'}}>Nike Running</Text>
-                  <Text style={{fontSize: 10}} note>San Francisco</Text>
-                </Body>
-              </Left>
-            </CardItem>
-
-            <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-              <CardItem cardBody style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                flex: 1}}>
-
-                <Grid style={{height: 70}}>
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-                </Grid>
-              </CardItem>
-
-              <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                <Body>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
-                </Body>
-              </CardItem>
-            </View>
-          </Card>
-
-          <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                <Body>
-                  <Text style={{fontWeight: 'bold'}}>Nike Running</Text>
-                  <Text style={{fontSize: 10}} note>San Francisco</Text>
-                </Body>
-              </Left>
-            </CardItem>
-
-            <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-              <CardItem cardBody style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                flex: 1}}>
-
-                <Grid style={{height: 70}}>
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-                </Grid>
-              </CardItem>
-
-              <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                <Body>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
-                </Body>
-              </CardItem>
-            </View>
-          </Card>
-
-          <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                <Body>
-                  <Text style={{fontWeight: 'bold'}}>Nike Running</Text>
-                  <Text style={{fontSize: 10}} note>San Francisco</Text>
-                </Body>
-              </Left>
-            </CardItem>
-
-            <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-              <CardItem cardBody style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                flex: 1}}>
-
-                <Grid style={{height: 70}}>
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-                </Grid>
-              </CardItem>
-
-              <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                <Body>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
-                </Body>
-              </CardItem>
-            </View>
-          </Card>
-
-          <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                <Body>
-                  <Text style={{fontWeight: 'bold'}}>Nike Running</Text>
-                  <Text style={{fontSize: 10}} note>San Francisco</Text>
-                </Body>
-              </Left>
-            </CardItem>
-
-            <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-              <CardItem cardBody style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                flex: 1}}>
-
-                <Grid style={{height: 70}}>
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-                </Grid>
-              </CardItem>
-
-              <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                <Body>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
-                </Body>
-              </CardItem>
-            </View>
-          </Card>
-
-          <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
-            <CardItem>
-              <Left>
-                <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                <Body>
-                  <Text style={{fontWeight: 'bold'}}>Nike Running</Text>
-                  <Text style={{fontSize: 10}} note>San Francisco</Text>
-                </Body>
-              </Left>
-            </CardItem>
-
-            <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-              <CardItem cardBody style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                flex: 1}}>
-
-                <Grid style={{height: 70}}>
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-
-                  <Row size={33}>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                    <Col>
-                      <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                    </Col>
-                  </Row>
-                </Grid>
-              </CardItem>
-
-              <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                <Body>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Running Mon and Wed`}</Text>
-                  <Text style={{textAlign: 'left'}}>{`\u2022 Weight lifting Tues and Thurs`}</Text>
-                </Body>
-              </CardItem>
-            </View>
-          </Card>
+            )}) : <Text>Loading...</Text>
+          }
         </Content>
       </Container>
     )

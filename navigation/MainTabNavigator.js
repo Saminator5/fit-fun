@@ -20,26 +20,28 @@ import InfoScreen from '../screens/InfoScreen';
 import CreateScreen from '../screens/CreateScreen';
 import MyGroupsScreen from '../screens/MyGroupsScreen';
 
-export default TabNavigator(
+export default MainTabNavigator = TabNavigator(
   {
     Create: {
+
       screen: CreateScreen
     },
 
     Browse: {
-      screen: BrowseScreen
+      screen:  BrowseScreen
     },
 
     Profile: {
       screen: ProfileScreen
     },
 
+    History: {
+      screen: HistoryScreen
+    },
+
     Groups: {
       screen: MyGroupsScreen
     },
-
-
-
   },
   {
     navigationOptions: ({ navigation }) => ({
@@ -76,3 +78,17 @@ export default TabNavigator(
     swipeEnabled: false,
   }
 );
+
+ class Navigator extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    console.log('navigator props: ', this.props)
+    return (
+      <MainTabNavigator
+        screenProps={this.props.navigation.state.params.user.user}
+      />)
+  }
+}

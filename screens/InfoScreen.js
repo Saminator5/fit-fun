@@ -20,12 +20,6 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 export default class InfoScreen extends React.Component {
   constructor() {
     super();
-    this.state = {
-      name: 'Usul Changberg Lefcourt',
-      email: 'usulchangberglefcourt@family.co',
-      number: '9827372899',
-      edit: false
-    }
   }
 
 

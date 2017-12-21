@@ -28,12 +28,11 @@ export default class BrowseScreen extends React.Component {
 
   componentWillMount = async () => {
     try {
-      const response = await fetch('http://fit-fun.herokuapp.com/search/public', {
+      const response = await fetch('http://fit-fun.herokuapp.com/search/active', {
         method: 'GET'
       });
 
       const res = await response.json();
-      console.log('PUBLIC: ', res)
       this.setState({
         groups: res.groups
       })
@@ -43,9 +42,9 @@ export default class BrowseScreen extends React.Component {
   }
 
   goToGroup = (id) => {
-    console.log('going...')
+    console.log('going to: ', id)
     const { navigate } = this.props.navigation;
-    navigate('GroupScreen', {id: id})
+    navigate('GroupScreen', {id: id + 1})
   }
 
   render() {
@@ -55,8 +54,8 @@ export default class BrowseScreen extends React.Component {
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
-          {this.state.groups ? this.state.groups.map((group) =>  {
-            return <Card style={{height: 170, marginLeft: 20, marginRight: 20}}>
+          {this.state.groups ? this.state.groups.map((group , id) =>  {
+            return <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
               <CardItem>
                 <Left>
                   <Thumbnail source={group.groupImg ? {uri: group.groupImg} : {uri: 'https://vignette.wikia.nocookie.net/scoobydoo/images/9/9d/Velma_Dinkley.png/revision/latest?cb=20160213120532'}} />
@@ -65,7 +64,7 @@ export default class BrowseScreen extends React.Component {
                       <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
                       <Text note>{group.description}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => _this.goToGroup(group.id)}>
+                    <TouchableOpacity onPress={() => _this.goToGroup(id)}>
                       <Icon name='arrow-forward' />
                     </TouchableOpacity>
                   </Body>
