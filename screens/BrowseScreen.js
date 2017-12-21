@@ -24,7 +24,8 @@ export default class BrowseScreen extends React.Component {
     this.state = {
       groups: [],
       // admin: 'Loading...',
-      publicValue: true
+      publicValue: true,
+      search: ''
     }
   }
 
@@ -32,9 +33,12 @@ export default class BrowseScreen extends React.Component {
     header: null
   };
 
+
+
   componentWillMount = async () => {
     console.log('props: ', this.props)
     console.log('will mount...')
+    // public groups
     try {
       const response = await fetch('http://fit-fun.herokuapp.com/search/public', {
         method: 'GET'
@@ -51,19 +55,9 @@ export default class BrowseScreen extends React.Component {
     } catch(e){
       console.log('error: ', e)
     }
-  }
 
-  joinGroup = async (id) => {
-    console.log('id: ', id)
-    try {
-      const response = await fetch(`http://fit-fun.herokuapp.com/new/membership/${id}`, {
-        method: 'POST'
-      });
+    // groups your friends are in
 
-      console.log('response: ', response)
-    } catch(e){
-      console.log('error: ', e)
-    }
   }
 
 
@@ -76,25 +70,25 @@ export default class BrowseScreen extends React.Component {
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
           <Segment>
-            <Button style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} first><Text style={{color: '#394648'}}>Friends</Text></Button>
-            <Button style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}}><Text style={{color: '#394648'}}>Public</Text></Button>
-            <Button style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} last><Text style={{color: '#394648'}}>Nearby</Text></Button>
+            <Button onClick={() => this.setState({publicValue: true})} style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}}><Text style={{color: '#394648'}}>Public</Text></Button>
+            <Button onClick={() => this.setState({publicValue: false})} style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} first><Text style={{color: '#394648'}}>Friends</Text></Button>
           </Segment>
 
           <Item>
             <Icon active name='home' style={{fontSize:25, color:'#394648', padding: 10}} />
-            <Input style={{color: '#2F3A3B'}}  placeholderTextColor='#394648' placeholder='Search groups...'/>
+            <Input  onChangeText={(search) => this.setState({search})} style={{color: '#2F3A3B'}}  placeholderTextColor='#394648' placeholder='Search groups...'/>
           </Item>
 
           {
             this.state.groups.length ? this.state.groups.map((group, id) => {
-              return ( <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
+              return (
+              <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
                 <CardItem>
                   <Left style={{display: 'flex', justifyContent: 'space-between'}}>
                     <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
                     <View style={{flexDirection: 'column'}}>
                       <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
-                      <Text style={{fontSize: 10}} note>{group.description}</Text>
+                      <Text style={{fontSize: 14}} note>{group.description}</Text>
                     </View>
                     <View>
                       <TouchableOpacity

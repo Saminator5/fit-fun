@@ -24,27 +24,19 @@ export default class GroupScreen extends React.Component {
     }
   }
 
+  back(){
+    this.props.navigation.goBack()
+  }
+
   static navigationOptions = {
     title: 'Achievements',
   };
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-    * content, we just wanted to give you a quick view of your config */
-//     "date": DATE, //date of end of tournament
-// "points": INTEGER,
-// "tourney": {
-// "id": INTEGER, //id of tournament
-// "startDate": DATE,
-// "endDate": DATE,
-// "group": {
-// “id”: INTEGER, //id of group
-// "name": STRING
-// }
-// }
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}} >
-        <Content style={{display: 'flex'}} contentContainerStyle={{flex: 1, justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Button style={{fontSize: 10}} onPress={() => this.back()}><Text>Back</Text></Button>
+        <Content style={{display: 'flex'}}>
 
         </Content>
       </Container>

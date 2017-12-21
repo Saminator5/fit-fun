@@ -23,9 +23,9 @@ import MyGroupsScreen from '../screens/MyGroupsScreen';
 export default MainTabNavigator = TabNavigator(
   {
     Create: {
-
       screen: CreateScreen
     },
+
 
     Browse: {
       screen:  BrowseScreen
@@ -33,10 +33,6 @@ export default MainTabNavigator = TabNavigator(
 
     Profile: {
       screen: ProfileScreen
-    },
-
-    History: {
-      screen: HistoryScreen
     },
 
     Groups: {

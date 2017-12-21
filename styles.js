@@ -37,6 +37,11 @@ export default styles = StyleSheet.create({
     backgroundColor: '#A3CDD3',
     marginTop: 15
   },
+  segmentButton: {
+    borderColor: 'black',
+    borderWidth: 0.5,
+    backgroundColor: '#545D5E'
+  },
 
   element: {
     marginTop: 15,

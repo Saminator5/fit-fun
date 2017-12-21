@@ -67,9 +67,9 @@ export default class GroupScreen extends React.Component {
       for(let j = 0; j < user.activities.length; j++){
         const activity = user.activities[j];
         console.log('activity: ', activity)
-        activitiesArr.push({username: user.username.split(' ')[0], name: activity.name, duration: activity.duration, rigor: activity.rigor, points: activity.points, completedAt: activity.createdAt })
+        activitiesArr.push({username: user.username.split(' ')[0], img: user.img, name: activity.name, duration: activity.duration, rigor: activity.rigor, points: activity.points, completedAt: activity.createdAt })
       }
-      let userInfo = {id: user.id, role: user.membership.role, username: user.username}
+      let userInfo = {id: user.id, role: user.membership.role, username: user.username, img: user.img}
       membersArr = [userInfo, ...membersArr];
     }
 
@@ -102,41 +102,45 @@ export default class GroupScreen extends React.Component {
             </Card>
           </View>
           <View style={{flex: 6}}>
-            <View>
-              <Segment style={{marginLeft: 1, marginRight: 1}}>
+            <View style={{marginLeft: 5, marginRight: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Button first onPress={() => this.setState({
                   activities: true,
                   members: false,
                   winners: false
-                })}>
+                })}
+                style={styles.segmentButton}
+                >
                 <Text>Activities</Text>
               </Button>
               <Button onPress={() => this.setState({
                 activities: false,
                 members: true,
                 winners: false
-              })}>
+              })}
+              style={styles.segmentButton}
+              >
               <Text>Members</Text>
             </Button>
             <Button last onPress={() => this.setState({
               activities: false,
               members: false,
               winners: true
-            })}>
+            })}
+            style={styles.segmentButton}
+            >
             <Text>Winners</Text>
           </Button>
-        </Segment>
       </View>
       <View style={{flex: 4}}>
         <ScrollView>
           <View style={{flex: 4, borderColor: 'black', borderWidth: 1/2}}>
-          {this.state.activitiesArr.length !== 0 &&
+          {this.state.activities && this.state.activitiesArr.length !== 0 &&
             this.state.activitiesArr.map((activity, id) => {
               return <View key={id} style={{flexDirection: 'column', flex: 1}}>
                 <Card>
                   <CardItem>
                     <Left>
-                      <Thumbnail source={{uri: 'https://i.imgur.com/RjXZTgw.jpg'}} />
+                      <Thumbnail source={{uri: activity.img}} />
                       <Body>
                         <View style={{display: 'flex', flexDirection: 'row'}}>
                           <Text style={{fontWeight: 'bold'}}>{activity.username}:</Text>
@@ -156,30 +160,17 @@ export default class GroupScreen extends React.Component {
             })
             }
 
-          {this.state.members &&
-            <View>
+          {this.state.members && this.state.membersArr.map((member, id) => {
+            return <View key={id}>
               <Card>
                 <CardItem>
                   <Left>
-                    <Thumbnail source={{uri: 'https://img.grouponcdn.com/iam/2Ptb6LZfTwH1Qkjgovd7Xuy7sKhN/2P-2048x1229/v1/c700x420.jpg'}} />
+                    <Thumbnail source={{uri: member.img}} />
                     <Body>
-                      <Text style={{fontWeight: 'bold'}}>Samuel</Text>
+                      <Text style={{fontWeight: 'bold'}}>{member.username}</Text>
                       <View style={{flexDirection: 'row'}}>
-                        <Text>180993837</Text>
-                        <Text style={{color: 'grey', fontSize: 12, alignSelf: 'flex-end'}}>pts</Text>
-                      </View>
-                    </Body>
-                  </Left>
-                </CardItem>
-              </Card>
-              <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'https://img.grouponcdn.com/iam/2Ptb6LZfTwH1Qkjgovd7Xuy7sKhN/2P-2048x1229/v1/c700x420.jpg'}} />
-                    <Body>
-                      <Text style={{fontWeight: 'bold'}}>Samuel</Text>
-                      <View style={{flexDirection: 'row'}}>
-                        <Text>180993837</Text>
+                        {/*NOTE member.id needs to be changed to total points of tourney when the route has been changed  */}
+                        <Text>{member.id}</Text>
                         <Text style={{color: 'grey', fontSize: 12, alignSelf: 'flex-end'}}>pts</Text>
                       </View>
                     </Body>
@@ -187,6 +178,7 @@ export default class GroupScreen extends React.Component {
                 </CardItem>
               </Card>
             </View>
+          })
           }
 
           {this.state.winners &&

@@ -8,6 +8,7 @@ import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import GroupScreen from '../screens/GroupScreen';
 import InfoScreen from '../screens/InfoScreen';
+import HistoryScreen from '../screens/HistoryScreen';
 
 const RootStackNavigator = StackNavigator(
   {
@@ -28,6 +29,10 @@ const RootStackNavigator = StackNavigator(
     },
     InfoScreen: {
       screen: InfoScreen
+    },
+
+    History: {
+      screen: HistoryScreen
     },
 
   },

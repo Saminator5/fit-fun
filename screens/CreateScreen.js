@@ -64,7 +64,7 @@ export default class CreateScreen extends React.Component {
   }
 
   createGroup = async () => {
-    const date = new Date(2017, 11, 18); // when tourney will start
+    const date = new Date(this.state.date); // when tourney will start
     console.log('trying to create', date)
     console.log('state: ', this.state)
 
