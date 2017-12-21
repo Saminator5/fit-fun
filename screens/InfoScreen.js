@@ -21,11 +21,16 @@ export default class InfoScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: 'Usul Changberg Lefcourt',
-      email: 'usulchangberglefcourt@family.co',
-      number: '9827372899',
-      edit: false
+      name: '',
+      img: 'https://s7d2.scene7.com/is/image/PetSmart/PB1201_STORY_CARO-Authority-HealthyOutside-DOG-20160818?$PB1201$',
     }
+  }
+
+  componentWillMount(){
+    console.log('this.props: ', this.props)
+    this.setState({
+      name: this.props.navigation.state.params.user.username,
+    })
   }
 
 
@@ -42,16 +47,16 @@ export default class InfoScreen extends React.Component {
             <View style={{flexDirection: 'row', justifyContent: 'center'}}>
 
                 <View style={{alignSelf: 'center'}}>
-                  <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2' }} />
+                  <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: this.state.img  }} />
                 </View>
               </View>
             <View style={{flexDirection: 'column', marginTop: 10}}>
               <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 2}}>
-                  <Item>
-                    <Input value={this.state.name}
+                  <Text>
+                    {this.state.name}
                     />
-                  </Item>
+                  </Text>
                 </View>
                 <View style={{flex: 1, marginLeft: 5}}>
                   <Text style={{fontSize: 14, fontWeight: 'bold'}}>
@@ -59,7 +64,7 @@ export default class InfoScreen extends React.Component {
                   </Text>
                 </View>
               </View>
-              <View style={{flexDirection: 'row'}}>
+              {/* <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 2}}>
                   <Item>
                     <Input value={this.state.email}
@@ -71,9 +76,9 @@ export default class InfoScreen extends React.Component {
                     Email
                   </Text>
                 </View>
-              </View>
+              </View> */}
 
-              <View style={{flexDirection: 'row'}}>
+              {/* <View style={{flexDirection: 'row'}}>
                 <View style={{flex: 2}}>
                   <Item>
                     <Input value={this.state.number}
@@ -85,7 +90,7 @@ export default class InfoScreen extends React.Component {
                     Phone #
                   </Text>
                 </View>
-              </View>
+              </View> */}
             </View>
           </Content>
         </Container>

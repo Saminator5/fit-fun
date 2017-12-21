@@ -9,6 +9,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import styles from '../styles.js'
+
 import { ExpoConfigView } from '@expo/samples';
 import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Segment, Card, CardItem, Left, Body, Right } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
@@ -19,7 +21,9 @@ export default class BrowseScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      groups: []
+      activeGroups: [],
+      invited: false,
+      invitedGroups: []
     }
   }
   static navigationOptions = {
@@ -28,17 +32,26 @@ export default class BrowseScreen extends React.Component {
 
   componentWillMount = async () => {
     try {
-      const response = await fetch('http://fit-fun.herokuapp.com/search/active', {
+      const activeGroups = await fetch('http://fit-fun.herokuapp.com/search/active', {
         method: 'GET'
       });
 
-      const res = await response.json();
+      const invitedGroups = await fetch('http://fit-fun.herokuapp.com/search/invited', {
+        method: 'GET'
+      });
+
+      const activeGroupsRes = await activeGroups.json();
+      const invitedGroupsRes = await invitedGroups.json();
+
       this.setState({
-        groups: res.groups
+        activeGroups: activeGroupsRes.groups,
+        invitedGroups: invitedGroupsRes.groups
+
       })
     } catch(e){
       console.log('error: ', e)
     }
+
   }
 
   goToGroup = (id) => {
@@ -54,7 +67,23 @@ export default class BrowseScreen extends React.Component {
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
-          {this.state.groups ? this.state.groups.map((group , id) =>  {
+          <View style={{marginLeft: 5, marginRight: 5, flexDirection: 'row', justifyContent: 'center'}}>
+            <Button first onPress={() => this.setState({
+              invited: false
+            })}
+            style={styles.segmentButton}
+            >
+              <Text>Active</Text>
+            </Button>
+            <Button onPress={() => this.setState({
+              invited: true
+            })}
+            style={styles.segmentButton}
+            >
+              <Text>Invited</Text>
+            </Button>
+          </View>
+          {this.state.activeGroups ? this.state.activeGroups.map((group , id) =>  {
             return <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
               <CardItem>
                 <Left>
@@ -131,33 +160,3 @@ export default class BrowseScreen extends React.Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'skyblue',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  border: {
-    borderRadius: 4,
-    borderWidth: 2,
-    width: 300,
-    height: 70,
-    borderColor: 'black',
-    backgroundColor: '#fafafa',
-  },
-
-  input: {
-    height: 50,
-    width: 125,
-    borderColor: 'gray',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    shadowColor: 'gray',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
-  }
-})

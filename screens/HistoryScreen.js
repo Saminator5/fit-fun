@@ -60,7 +60,7 @@ export default class HistoryScreen extends React.Component {
     * content, we just wanted to give you a quick view of your config */
     return (
       <View style={{flex: 1}}>
-      <Button style={{fontSize: 10}} onPress={() => this.back()}><Text>Back</Text></Button>
+      <Button onPress={() => this.back()}><Text>Back</Text></Button>
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
           <View style={{alignSelf: 'flex-end', marginRight: 5, flexDirection: 'row'}}>

@@ -40,7 +40,8 @@ export default styles = StyleSheet.create({
   segmentButton: {
     borderColor: 'black',
     borderWidth: 0.5,
-    backgroundColor: '#545D5E'
+    backgroundColor: '#545D5E',
+    marginLeft: 3
   },
 
   element: {

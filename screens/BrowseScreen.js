@@ -23,7 +23,7 @@ export default class BrowseScreen extends React.Component {
     super();
     this.state = {
       groups: [],
-      // admin: 'Loading...',
+      admin: 'Loading...',
       publicValue: true,
       search: ''
     }
@@ -32,6 +32,20 @@ export default class BrowseScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
+
+  joinGroup = async (id) => {
+    try {
+      const response = await fetch(`http://fit-fun.herokuapp.com/new/membership/${id + 1}`, {
+        method: 'POST',
+        body: JSON.stringify({}),
+      });
+
+      const res = await response.json();
+      console.log('res: ', res)
+    }  catch (e) {
+      console.log('error: ', e)
+    }
+  }
 
 
 
@@ -46,24 +60,27 @@ export default class BrowseScreen extends React.Component {
 
       const res = await response.json();
       console.log('PUBLIC: ', res.groups)
-      // let adminObj = res.groups.users.filter(user => user.membership.role === 'admin');
-      // const admin = adminObj.username;
+      res.groups.forEach(group => {
+        let admin = '';
+        for(let i = 0; i < group.users.length; i++){
+          if(group.users[i].membership.role === 'admin'){
+            admin = group.users[i].username
+          }
+        }
+        group.admin = admin;
+      });
+
       this.setState({
         groups: res.groups,
-        // admin
       })
     } catch(e){
       console.log('error: ', e)
     }
-
-    // groups your friends are in
-
   }
 
 
   render() {
-    /* Go ahead and delete ExpoConfigView and replace it with your
-    * content, we just wanted to give you a quick view of your config */
+    const _this = this;
     const resizeMode = 'cover';
     console.log('length: ', this.state.groups.length)
     return (
@@ -92,7 +109,7 @@ export default class BrowseScreen extends React.Component {
                     </View>
                     <View>
                       <TouchableOpacity
-                        onPress={() => this.joinGroup(id + 1)}>
+                        onPress={() => _this.joinGroup(id + 1)}>
                         <Icon name='add-circle' />
                       </TouchableOpacity>
                     </View>
@@ -157,8 +174,8 @@ export default class BrowseScreen extends React.Component {
 
                   <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 0.5}}>
                     <Body>
-                      {/* <Text>{group.users.length} members</Text> */}
-                      {/* <Text>Created by {this.state.admin}</Text> */}
+                      <Text>{group.users.length} members</Text>
+                      <Text>Created by {group.admin}</Text>
                     </Body>
                   </CardItem>
                 </View>

@@ -36,11 +36,12 @@ export default class CreateScreen extends React.Component {
       description: '',
       mStatement: '',
       date: '2016-05-15',
-      url: ''
+      url: '',
     }
   }
 
   addActivity = async () => {
+    console.log('this.state: ', this.state)
     try {
       const response = await fetch('http://fit-fun.herokuapp.com/new/activity', {
         method: 'POST',
@@ -77,14 +78,13 @@ export default class CreateScreen extends React.Component {
         },
         body: JSON.stringify({
           public: this.state.publicValue,
-          name: this.state.Name,
+          name: this.state.groupName,
           description: this.state.description,
           groupImg: this.state.url,
           startDate: date
         }),
       });
-
-      const res = response.json();
+      const res = await response.json();
       console.log('res: ', res)
     } catch(e){
       console.log('error: ', e)

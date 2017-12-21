@@ -11,6 +11,11 @@ export default class LoginScreen extends React.Component {
     header: null
   };
 
+  go = () => {
+    const { navigate } = this.props.navigation;
+    navigate('MainTabNavigator');
+  }
+
   _handleButtonPress = () => {
     Alert.alert(
       'Button pressed!',

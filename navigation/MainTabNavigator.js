@@ -25,8 +25,6 @@ export default MainTabNavigator = TabNavigator(
     Create: {
       screen: CreateScreen
     },
-
-
     Browse: {
       screen:  BrowseScreen
     },

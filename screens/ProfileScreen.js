@@ -71,7 +71,7 @@ export default class ProfileScreen extends React.Component {
             </View>
             <List style={{flex: 3, marginBottom: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
               <ListItem
-                onPress={() => {this.takeMeTo('InfoScreen')}}
+                onPress={() => {this.props.navigation.navigate('InfoScreen', {user: this.props.navigation.state.params.user.user})}}
                 style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: 'black'}}>
                 <Text style={styles.fontColor}>
                   My Info
@@ -90,6 +90,98 @@ export default class ProfileScreen extends React.Component {
                   <Icon ios='ios-contacts' android="md-contacts" style={styles.icons} />
                 </View>
               </ListItem>
+
+              <ScrollView
+                   style={{borderWidth: 2, borderColor: 'black', marginLeft: 12}}
+                   horizontal={true}
+                   scrollEnabled={true}>
+
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                   <View style={{paddingRight: 10}}>
+                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                       <Text ellipsizeMode='tail'
+                         numberOfLines={1}
+                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
+                   </View>
+                 </ScrollView>
+
 
               <ListItem
                 onPress={() => {this.takeMeTo('History')}}
