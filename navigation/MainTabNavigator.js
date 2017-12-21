@@ -8,17 +8,35 @@ import Colors from '../constants/Colors';
 import HomeScreen from '../screens/HomeScreen';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import LoginScreen from '../screens/LoginScreen';
+import SignupScreen from '../screens/SignupScreen';
+import BrowseScreen from '../screens/BrowseScreen';
+import CreateGroupScreen from '../screens/CreateGroupScreen';
+import HistoryScreen from '../screens/HistoryScreen';
+import ActivityScreen from '../screens/ActivityScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import GroupScreen from '../screens/GroupScreen';
+import InfoScreen from '../screens/InfoScreen';
+import CreateScreen from '../screens/CreateScreen';
+import MyGroupsScreen from '../screens/MyGroupsScreen';
 
-export default TabNavigator(
+export default MainTabNavigator = TabNavigator(
   {
-    Home: {
-      screen: HomeScreen,
+    Create: {
+      screen: CreateScreen
     },
-    Links: {
-      screen: LinksScreen,
+
+
+    Browse: {
+      screen:  BrowseScreen
     },
-    Settings: {
-      screen: SettingsScreen,
+
+    Profile: {
+      screen: ProfileScreen
+    },
+
+    Groups: {
+      screen: MyGroupsScreen
     },
   },
   {
@@ -28,17 +46,17 @@ export default TabNavigator(
         let iconName;
         switch (routeName) {
           case 'Home':
-            iconName =
-              Platform.OS === 'ios'
-                ? `ios-information-circle${focused ? '' : '-outline'}`
-                : 'md-information-circle';
+            iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
             break;
-          case 'Links':
-            iconName = Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link';
+          case 'Browse':
+            iconName = Platform.OS === 'ios' ? `ios-people${focused ? '' : '-outline'}` : 'md-people';
             break;
-          case 'Settings':
-            iconName =
-              Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options';
+          case 'Create':
+            iconName = Platform.OS === 'ios' ? `ios-add${focused ? '' : '-outline'}` : 'md-add';
+            break;
+          case 'Profile':
+            iconName = Platform.OS === 'ios' ? `ios-person${focused ? '' : '-outline'}` : 'md-person';
+            break;
         }
         return (
           <Ionicons
@@ -56,3 +74,17 @@ export default TabNavigator(
     swipeEnabled: false,
   }
 );
+
+ class Navigator extends React.Component {
+  constructor(props){
+    super(props);
+  }
+
+  render(){
+    console.log('navigator props: ', this.props)
+    return (
+      <MainTabNavigator
+        screenProps={this.props.navigation.state.params.user.user}
+      />)
+  }
+}
