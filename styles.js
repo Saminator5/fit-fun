@@ -18,16 +18,15 @@ export default styles = StyleSheet.create({
     color: '#001413'
   },
   picker: {
-    backgroundColor: 'white',
-    borderColor: '#101112',
-    borderWidth: 1,
+    backgroundColor: '#A3CDD3',
     marginLeft: 10,
     marginRight: 10,
-    height: 100,
+    height: 90,
   },
   pickerItem: {
     color: '#171A1A',
     height: 100,
+    fontSize: 15
   },
   labels: {
     fontSize: 15,
@@ -83,5 +82,8 @@ export default styles = StyleSheet.create({
   },
   groupFont: {
     fontSize: 25
+  },
+  userScreenFont: {
+    fontSize: 20
   }
 });

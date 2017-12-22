@@ -133,8 +133,9 @@ export default class LoginScreen extends React.Component {
                       <Button
                         block
                         onPress={this._handleFacebookLogin.bind(this)}
+                        style={{ backgroundColor: '#A3CDD3'}}
                         >
-                          <Text>Login with Facebook</Text>
+                          <Text style={{ color: '#316366'}}>Login with Facebook</Text>
                         </Button>
                       </View>
                     </View>

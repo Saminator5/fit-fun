@@ -37,6 +37,10 @@ export default class GroupScreen extends React.Component {
     title: 'Group',
   };
 
+  goToMember(id){
+    this.props.navigation.navigate('UserScreen', {id} )
+   }
+
 
 
   componentWillMount = async () => {
@@ -162,35 +166,42 @@ export default class GroupScreen extends React.Component {
             }
 
           {this.state.members && this.state.membersArr.map((member, id) => {
-            return <View key={id}>
-              <Card>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: member.img}} />
-                    <Body>
-                      <Text style={{fontWeight: 'bold'}}>{member.username}</Text>
-                      <View style={{flexDirection: 'row'}}>
-                        {/*NOTE member.id needs to be changed to total points of tourney when the route has been changed  */}
-                        <Text>{member.id}</Text>
-                        <Text style={{color: 'grey', fontSize: 12, alignSelf: 'flex-end'}}>pts</Text>
-                      </View>
-                    </Body>
-                  </Left>
-                </CardItem>
-              </Card>
-            </View>
+            return <TouchableOpacity key={id}
+              onPress={() => this.goToMember(member.id)}>
+              <View>
+                <Card>
+                  <CardItem>
+                    <Left>
+                      <Thumbnail source={{uri: member.img}} />
+                      <Body>
+                        <Text style={{fontWeight: 'bold'}}>{member.username}</Text>
+                      </Body>
+                    </Left>
+                  </CardItem>
+                </Card>
+              </View>
+            </TouchableOpacity>
           })
           }
 
           {this.state.winners &&
             <View>
+              {/* <Card style={{height: 100, marginLeft: 20, marginRight: 20}}>
+                <CardItem>
+                  <Left>
+                    <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
+                    <Body>
+                      <Text style={{fontWeight: 'bold', fontSize: 17}}>Symmone</Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+              </Card>
               <Card style={{height: 100, marginLeft: 20, marginRight: 20}}>
                 <CardItem>
                   <Left>
                     <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
                     <Body>
                       <Text style={{fontWeight: 'bold', fontSize: 17}}>Symmone</Text>
-                      <Text style={{fontSize: 15}} note>135</Text>
                     </Body>
                   </Left>
                   <Right>
@@ -209,33 +220,9 @@ export default class GroupScreen extends React.Component {
                     </ScrollView>
                   </Right>
                 </CardItem>
-              </Card>
-              <Card style={{height: 100, marginLeft: 20, marginRight: 20}}>
-                <CardItem>
-                  <Left>
-                    <Thumbnail source={{uri: 'https://img.huffingtonpost.com/asset/56f30663150000ad000b3082.jpeg?cache=c15cnysyem&ops=scalefit_960_noupscale'}} />
-                    <Body>
-                      <Text style={{fontWeight: 'bold', fontSize: 17}}>Symmone</Text>
-                      <Text style={{fontSize: 15}} note>135</Text>
-                    </Body>
-                  </Left>
-                  <Right>
-                    <ScrollView>
-                      <CardItem right style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 2}}>
-                        <Body>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Ran 3 miles`}</Text>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Swam for 3h and 25m`}</Text>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Swam for 3h and 25m`}</Text>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Swam for 3h and 25m`}</Text>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Swam for 3h and 25m`}</Text>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Swam for 3h and 25m`}</Text>
-                          <Text style={{textAlign: 'left', fontSize: 15}}>{`\u2022 Swam for 3h and 25m`}</Text>
-                        </Body>
-                      </CardItem>
-                    </ScrollView>
-                  </Right>
-                </CardItem>
-              </Card>
+              </Card> */}
+
+              <Text>Tournament is still ongoing!</Text>
             </View>
           }
 

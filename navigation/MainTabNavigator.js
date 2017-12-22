@@ -43,10 +43,10 @@ export default MainTabNavigator = TabNavigator(
         const { routeName } = navigation.state;
         let iconName;
         switch (routeName) {
-          case 'Home':
-            iconName = Platform.OS === 'ios' ? `ios-home${focused ? '' : '-outline'}` : 'md-home';
-            break;
           case 'Browse':
+            iconName = Platform.OS === 'ios' ? `ios-search${focused ? '' : '-outline'}` : 'md-search';
+            break;
+          case 'Groups':
             iconName = Platform.OS === 'ios' ? `ios-people${focused ? '' : '-outline'}` : 'md-people';
             break;
           case 'Create':
@@ -70,6 +70,7 @@ export default MainTabNavigator = TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false,
+    initialRouteName: 'Profile'
   }
 );
 
@@ -83,6 +84,7 @@ export default MainTabNavigator = TabNavigator(
     return (
       <MainTabNavigator
         screenProps={this.props.navigation.state.params.user.user}
+        initialRouteName='Profile'
       />)
   }
 }

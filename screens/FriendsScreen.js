@@ -59,8 +59,8 @@ export default class FriendsScreen extends React.Component {
 
   render() {
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
-        <View style={{flex: 1}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', flex: 1}}>
+        <View style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
           {this.state.friends.length ?
             this.state.friends.map((friend, id) => {
               const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
@@ -69,7 +69,8 @@ export default class FriendsScreen extends React.Component {
               const year = date.getFullYear();
               const day = date.getDate();
 
-              return <Card onPress={(id) => goToFriend(id)} key={id}>
+              return <Card key={id} style={{maxHeight: 150}}>
+                <TouchableOpacity  onPress={() => this.goToFriend(friend.id)}>
                 <CardItem>
                   <Left>
                     <Thumbnail source={{uri: friend.img }} />
@@ -83,6 +84,7 @@ export default class FriendsScreen extends React.Component {
                     </Body>
                   </Left>
                 </CardItem>
+              </TouchableOpacity>
               </Card>
             })
 

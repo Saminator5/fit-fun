@@ -20,7 +20,24 @@ export default class GroupScreen extends React.Component {
   constructor() {
     super();
     this.state = {
+      trophies: []
+    }
+  }
 
+  componentWillMount = async () => {
+    try {
+        let trophies = await fetch(`http://fit-fun.herokuapp.com/user/trophies`, {
+          method: 'GET',
+        })
+
+        trophies = await trophies.json();
+        trophies = trophies.trophies;
+
+        console.log('trophies: ', trophies)
+        this.setState({trophies})
+      }  catch (error) {
+      // Error retrieving data
+      console.log("Could not load trophies!", error)
     }
   }
 
@@ -32,7 +49,9 @@ export default class GroupScreen extends React.Component {
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}} >
         <Content style={{display: 'flex'}}>
-
+          {this.state.trophies.length
+            ? <Text>You won a trophy!</Text>
+            : <Text>You have no trophies. Win a tournament and come back!</Text>}
         </Content>
       </Container>
     )

@@ -71,7 +71,7 @@ export default class BrowseScreen extends React.Component {
   goToGroup = (id) => {
     console.log('going to: ', id)
     const { navigate } = this.props.navigation;
-    navigate('GroupScreen', {id: id + 1})
+    navigate('GroupScreen', {id})
   }
 
   render() {
@@ -105,6 +105,7 @@ export default class BrowseScreen extends React.Component {
             </Button>
           </View>
           {!this.state.loading ? (this.state.invited ? this.state.invitedGroups : this.state.activeGroups).map((group , id) =>  {
+            console.log('group:', group)
             return <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
               <CardItem>
                 <Left>
@@ -114,7 +115,7 @@ export default class BrowseScreen extends React.Component {
                       <Text style={{fontWeight: 'bold'}}>{group.name}</Text>
                       <Text note>{group.description}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => _this.goToGroup(id)}>
+                    <TouchableOpacity onPress={() => _this.goToGroup(group.id)}>
                       <Icon name='arrow-forward' />
                     </TouchableOpacity>
                   </Body>
@@ -122,54 +123,9 @@ export default class BrowseScreen extends React.Component {
               </CardItem>
 
               <View style={{display: 'flex', flexDirection: 'row', backgroundColor: 'green', flex: 1}}>
-                <CardItem cardBody style={{
-                  borderColor: 'grey',
-                  borderWidth: 0.5,
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  flex: 1}}>
-                  <Grid style={{height: 70}}>
-                    <Row size={33}>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                    </Row>
-
-                    <Row size={33}>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                    </Row>
-
-                    <Row size={33}>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                      <Col>
-                        <Image source={{uri: 'https://image.spreadshirtmedia.com/image-server/v1/products/1003716746/views/1,width=800,height=800,appearanceId=1,backgroundColor=fff,version=1485256808/i-eat-ass-t-shirt-men-s-t-shirt.jpg'}} style={{resizeMode: 'contain',height: 25,flex: 1}}/>
-                      </Col>
-                    </Row>
-                  </Grid>
-                </CardItem>
-
                 <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 0.5}}>
                   <Body style={{justifyContent: 'center', alignItems: 'center', display: 'flex'}}>
-                    <Text style={{textAlign: 'center'}}>{`${group.members ? group.members : 32} members`}</Text>
+                    <Text style={{textAlign: 'center'}}>{`${group.users ? group.users.length : 32} members`}</Text>
                     <Text style={{textAlign: 'center', color: 'green'}}>{`Ongoing`}</Text>
                   </Body>
                 </CardItem>

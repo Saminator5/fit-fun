@@ -20,10 +20,7 @@ export default class UserScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      user: {},
-      joined: 'joined',
-      name: '',
-      img: 'https://s7d2.scene7.com/is/image/PetSmart/PB1201_STORY_CARO-Authority-HealthyOutside-DOG-20160818?$PB1201$',
+      user: {}
     }
   }
 
@@ -37,7 +34,7 @@ export default class UserScreen extends React.Component {
       console.log('response: ', response)
 
       const res = await response.json();
-      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      const months = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       console.log('user found: ', res.user.groups)
       const date = new Date(res.user.createdAt);
       const month = months[date.getMonth()];
@@ -60,60 +57,60 @@ export default class UserScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: 'User'
+    title: 'Profile'
   };
 
   render() {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', backgroundColor: 'blue'}}>
-        <ScrollView><View style={{flex: 1}}>
-          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2}}>
-            <View style={{alignSelf: 'center'}}>
-              <Image style={{width: 120, height: 120, borderRadius: 60}} source={{uri: this.state.user.img}} />
-            </View>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3'}}>
+        <View style={{flex: 2,  flexDirection: 'column', justifyContent: 'center', alignContent: 'space-between'}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2, padding: 2}}>
+            <Image style={{width: 120, height: 120, borderRadius: 60, marginTop: 10, borderWidth: 3}} source={{uri: this.state.user.img}} />
           </View>
-          <View style={{flexDirection: 'column', marginTop: 10, backgroundColor: 'red', justifyContent: 'space-around', flex: 8}}>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 2}}>
-                <Text> {this.state.user.username} </Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Text style={{fontSize: 14, fontWeight: 'bold'}}>Name</Text>
-              </View>
-            </View>
 
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 2}}>
-                <Text> {this.state.user.username} </Text>
+          <View style={{flex: 3, flexDirection: 'column', marginTop: 10, justifyContent: 'space-between', alignContent: 'space-between'}}>
+              <Item style={{display: 'flex', flexDirection: 'column'}}>
+                <Text>Name</Text>
+                <Text style={styles.userScreenFont}> {this.state.user.username} </Text>
+              </Item>
+              <Item style={{display: 'flex',  flexDirection: 'column'}}>
+                <Text>Joined</Text>
+                <Text style={styles.userScreenFont}> {this.state.month} / {this.state.year}</Text>
+              </Item>
+              <Item style={{display: 'flex',  flexDirection: 'column'}}>
+                <View style={{flexDirection: 'row'}}>
+                <Text>Groups (</Text>
+                <Text style={styles.userScreenFont}> {this.state.user.hasOwnProperty('groups') ? this.state.user.groups.length : '...'})</Text>
               </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Text style={{fontSize: 14, fontWeight: 'bold'}}>Email</Text>
-              </View>
-            </View>
+                  <ScrollView
+                    style={{marginLeft: 12, backgroundColor: 'white'}}
+                    horizontal={true}
+                    scrollEnabled={true}>
 
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 2}}>
-                <Text> {this.state.month} {this.state.date} {this.state.year}</Text>
-              </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Text style={{fontSize: 14, fontWeight: 'bold'}}>Joined</Text>
-              </View>
-            </View>
+                    {this.state.user.groups ? this.state.user.groups.map((group, id) => {
+                      return  <TouchableOpacity onPress={() => {}} key={id} style={{paddingRight: 10}}>
+                        <Thumbnail style={{width: 50, height: 50}} source={{ uri: group.groupImg}} />
+                        <Text ellipsizeMode='tail'
+                          numberOfLines={1}
+                          style={{maxWidth: 50, fontSize: 12, fontWeight: 'bold'}}>{group.name}</Text>
+                        </TouchableOpacity>
+                      }) : <Text>You have no friends ;/</Text>}
+                    </ScrollView>
+                  </Item>
 
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flex: 2}}>
-                <Text> {this.state.user.hasOwnProperty('groups') ? this.state.user.groups.length : '...'} </Text>
               </View>
-              <View style={{flex: 1, alignItems: 'flex-end'}}>
-                <Text style={{fontSize: 14, fontWeight: 'bold'}}>Groups</Text>
+              <View style={{flex: 0.5, marginTop: 7, justifyContent: 'flex-end'}}>
+                <Button
+                  block
+                  style={{ backgroundColor: '#545D5E'}}
+                  >
+                    <Text style={{ color: 'black'}}>Invite</Text>
+                  </Button>
+                </View>
               </View>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-      </Container>
-    )
-  }
-}
+            </Container>
+          )
+        }
+      }

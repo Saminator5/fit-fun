@@ -9,6 +9,7 @@ import {
   Picker,
   TextInput,
   Dimensions,
+  AsyncStorage
 } from 'react-native';
 
 import styles from '../styles.js'
@@ -24,7 +25,7 @@ export default class ProfileScreen extends React.Component {
     super();
     this.state = {
       user: {},
-      friends: [{username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}]
+      friends: []
     }
   }
 
@@ -50,8 +51,27 @@ export default class ProfileScreen extends React.Component {
       }
     }
 
-    componentWillMount(){
-      console.log('this.props: ', this.props)
+    componentWillMount = async () => {
+      try {
+        const value = await AsyncStorage.getItem('@FitFun:key');
+        if (value !== null) {
+          console.log("Currently logged in user's token is: " + value);
+          let friends = await fetch(`http://fit-fun.herokuapp.com/my/friends?token=${value}`, {
+            method: 'GET',
+          })
+
+          friends = await friends.json();
+          friends = friends.friends;
+
+          console.log('friends: ', friends)
+          friends = friends.slice(0,9);
+          this.setState({friends})
+          // do something with the token
+        }
+      } catch (error) {
+        // Error retrieving data
+        console.log("Token could not be retrieved!", error)
+      }
     }
 
     render() {
@@ -61,7 +81,8 @@ export default class ProfileScreen extends React.Component {
         <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
           <View style={{flex: 1,  marginTop: 45}}>
             <View style={{alignItems: 'center', flex: 2, justifyContent: 'space-between'}}>
-              {this.props.navigation.state.params.user.user.username ? <Text style={{fontWeight: 'bold'}, styles.fontColor}>  {this.props.navigation.state.params.user.user.username}  </Text> : <Text>Loading...</Text>}
+              {this.props.navigation.state.params.user.user.username ? <Text style={[{fontWeight: 'bold'}, styles.fontColor]}>
+                {this.props.navigation.state.params.user.user.username}  </Text> : <Text>Loading...</Text>}
 
               {this.props.navigation.state.params.user.user.img ?
                 <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: this.props.navigation.state.params.user.user.img }}/>
@@ -93,17 +114,16 @@ export default class ProfileScreen extends React.Component {
               </ListItem>
 
               <ScrollView
-                   style={{borderWidth: 1, borderColor: 'black', marginLeft: 12, maxHeight: 65}}
+                   style={{marginLeft: 12, maxHeight: 65}}
                    horizontal={true}
                    scrollEnabled={true}>
 
                    {this.state.friends.length ? this.state.friends.map((friend, id) => {
                      return  <TouchableOpacity onPress={() => {
-                       console.log('PRESSED A USER')
-                       _this.props.navigation.navigate('UserScreen', {id: id + 1})
+                       _this.props.navigation.navigate('UserScreen', {id: friend.id})
                      }
                      } key={id} style={{paddingRight: 10}}>
-                        <Thumbnail style={{width: 50, height: 50}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                        <Thumbnail style={{width: 50, height: 50}} source={{ uri: friend.img}} />
                           <Text ellipsizeMode='tail'
                             numberOfLines={1}
                             style={{maxWidth: 50, fontSize: 12, fontWeight: 'bold'}}>{friend.username}</Text>
@@ -136,7 +156,7 @@ export default class ProfileScreen extends React.Component {
                 </ListItem>
               </List>
               <View style={{flex: 1, justifyContent: 'flex-end'}}>
-                <Button full danger style={{marginTop: 2}}
+                <Button full style={{marginTop: 2, backgroundColor: '#EE524F'}}
                   onPress={() => this.logout()}>
                   <Text>Logout</Text>
                 </Button>

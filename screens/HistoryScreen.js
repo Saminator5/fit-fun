@@ -82,9 +82,6 @@ export default class HistoryScreen extends React.Component {
            onRefresh={this.getData.bind(this)}
          />
        }>
-          {/* <View style={{flex: 2, marginLeft: 5}}>
-            <TouchableOpacity onPress={() => this.back()}><Icon name='arrow-back' /></TouchableOpacity>
-          </View> */}
 
           <View style={{alignSelf: 'flex-end', marginRight: 5, flexDirection: 'row'}}>
             <Text style={{fontWeight: 'bold', fontSize: 25, textAlign: 'right'}}>
