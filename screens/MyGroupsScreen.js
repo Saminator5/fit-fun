@@ -7,31 +7,37 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  RefreshControl
 } from 'react-native';
 
 import styles from '../styles.js'
 
 import { ExpoConfigView } from '@expo/samples';
-import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Segment, Card, CardItem, Left, Body, Right } from 'native-base';
+import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Segment, Card, CardItem, Left, Body, Right,  } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 
 
-export default class MyGroupsScreen extends React.Component {
+export default class BrowseScreen extends React.Component {
   constructor() {
     super();
     this.state = {
       activeGroups: [],
       invited: false,
-      invitedGroups: []
+      invitedGroups: [],
+      loading: true,
+      refreshing: false
     }
   }
   static navigationOptions = {
     header: null
   };
 
-  componentWillMount = async () => {
+  getData = async () => {
     try {
+      this.setState({
+        refreshing: true
+      })
       const activeGroups = await fetch('http://fit-fun.herokuapp.com/search/active', {
         method: 'GET'
       });
@@ -45,13 +51,21 @@ export default class MyGroupsScreen extends React.Component {
 
       this.setState({
         activeGroups: activeGroupsRes.groups,
-        invitedGroups: invitedGroupsRes.groups
-
+        invitedGroups: invitedGroupsRes.groups,
+        loading: false,
+        refreshing: false
       })
     } catch(e){
       console.log('error: ', e)
     }
+  }
 
+  componentWillMount = async () => {
+    try {
+      await this.getData();
+    } catch (e){
+      console.log('error', e)
+    }
   }
 
   goToGroup = (id) => {
@@ -66,7 +80,14 @@ export default class MyGroupsScreen extends React.Component {
     console.log(this.state.groups)
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
-        <Content style={{flex: 1}}>
+        <Content style={{flex: 1}}
+          refreshControl={
+         <RefreshControl
+           refreshing={this.state.refreshing}
+           onRefresh={this.getData.bind(this)}
+         />
+       }
+          >
           <View style={{marginLeft: 5, marginRight: 5, flexDirection: 'row', justifyContent: 'center'}}>
             <Button first onPress={() => this.setState({
               invited: false
@@ -83,7 +104,7 @@ export default class MyGroupsScreen extends React.Component {
               <Text>Invited</Text>
             </Button>
           </View>
-          {this.state.activeGroups ? this.state.activeGroups.map((group , id) =>  {
+          {!this.state.loading ? (this.state.invited ? this.state.invitedGroups : this.state.activeGroups).map((group , id) =>  {
             return <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
               <CardItem>
                 <Left>
@@ -154,7 +175,9 @@ export default class MyGroupsScreen extends React.Component {
                 </CardItem>
               </View>
             </Card>
-          }) : <Text>No groups</Text>}
+          }) : <Text>Loading...</Text>}
+          {this.state.invited && !this.state.invitedGroups.length && !this.state.loading ? <Text>No new invitations.</Text> :
+          !this.state.invited && !this.state.activeGroups.length && !this.state.loading ? <Text>No active groups.</Text> : null}
         </Content>
       </Container>
     )

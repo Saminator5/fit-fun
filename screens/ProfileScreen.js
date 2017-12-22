@@ -100,7 +100,7 @@ export default class ProfileScreen extends React.Component {
                    {this.state.friends.length ? this.state.friends.map((friend, id) => {
                      return  <TouchableOpacity onPress={() => {
                        console.log('PRESSED A USER')
-                       _this.props.navigation.navigate('UserScreen', {id})
+                       _this.props.navigation.navigate('UserScreen', {id: id + 1})
                      }
                      } key={id} style={{paddingRight: 10}}>
                         <Thumbnail style={{width: 50, height: 50}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />

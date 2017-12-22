@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  RefreshControl,
 } from 'react-native';
 
 import { ExpoConfigView } from '@expo/samples';
@@ -25,7 +26,8 @@ export default class BrowseScreen extends React.Component {
       groups: [],
       admin: 'Loading...',
       publicValue: true,
-      search: ''
+      search: '',
+      refreshing: false,
     }
   }
 
@@ -39,21 +41,22 @@ export default class BrowseScreen extends React.Component {
         method: 'POST',
         body: JSON.stringify({}),
       });
-
       const res = await response.json();
       console.log('res: ', res)
     }  catch (e) {
       console.log('error: ', e)
     }
+
+    this.getData();
   }
 
-
-
-  componentWillMount = async () => {
+  getData = async () => {
     console.log('props: ', this.props)
     console.log('will mount...')
     // public groups
     try {
+      this.setState({refreshing: true})
+
       const response = await fetch('http://fit-fun.herokuapp.com/search/public', {
         method: 'GET'
       });
@@ -72,7 +75,16 @@ export default class BrowseScreen extends React.Component {
 
       this.setState({
         groups: res.groups,
+        refreshing: false
       })
+    } catch(e){
+      console.log('error: ', e)
+    }
+  }
+
+  componentWillMount = async () => {
+    try {
+      await this.getData();
     } catch(e){
       console.log('error: ', e)
     }
@@ -85,7 +97,13 @@ export default class BrowseScreen extends React.Component {
     console.log('length: ', this.state.groups.length)
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
-        <Content style={{flex: 1}}>
+        <Content style={{flex: 1}}
+          refreshControl={
+         <RefreshControl
+           refreshing={this.state.refreshing}
+           onRefresh={this.getData.bind(this)}
+         />
+       }>
           <Segment>
             <Button onClick={() => this.setState({publicValue: true})} style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}}><Text style={{color: '#394648'}}>Public</Text></Button>
             <Button onClick={() => this.setState({publicValue: false})} style={{borderColor: '#D8DBE2', backgroundColor: '#8FAABA'}} first><Text style={{color: '#394648'}}>Friends</Text></Button>
@@ -98,6 +116,12 @@ export default class BrowseScreen extends React.Component {
 
           {
             this.state.groups.length ? this.state.groups.map((group, id) => {
+              let joined = false;
+              group.users.map(user => {
+                if (user.id === _this.props.navigation.state.params.user.user.id){
+                  joined = true;
+                }
+              })
               return (
               <Card key={id} style={{height: 170, marginLeft: 20, marginRight: 20}}>
                 <CardItem>
@@ -109,8 +133,10 @@ export default class BrowseScreen extends React.Component {
                     </View>
                     <View>
                       <TouchableOpacity
-                        onPress={() => _this.joinGroup(id + 1)}>
-                        <Icon name='add-circle' />
+                        onPress={() => {
+                          _this.joinGroup(id + 1);
+                        }}>
+                        {joined ? <Icon name="checkmark" /> : <Icon name='add-circle' />}
                       </TouchableOpacity>
                     </View>
                   </Left>
@@ -173,8 +199,8 @@ export default class BrowseScreen extends React.Component {
                   </CardItem>
 
                   <CardItem cardBody style={{flex: 2, flexDirection: 'column', borderColor: 'grey', borderWidth: 0.5}}>
-                    <Body>
-                      <Text>{group.users.length} members</Text>
+                    <Body style={{ padding: 4 }}>
+                      <Text style={{ fontWeight: "bold"}}>{group.users.length} members</Text>
                       <Text>Created by {group.admin}</Text>
                     </Body>
                   </CardItem>

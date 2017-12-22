@@ -53,6 +53,7 @@ export default class GroupScreen extends React.Component {
       this.setState({
         group: res.group
       })
+
     } catch(e){
       console.log('error: ', e)
     }

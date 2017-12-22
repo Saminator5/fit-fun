@@ -23,13 +23,19 @@ export default class InfoScreen extends React.Component {
     this.state = {
       name: '',
       img: 'https://s7d2.scene7.com/is/image/PetSmart/PB1201_STORY_CARO-Authority-HealthyOutside-DOG-20160818?$PB1201$',
+      joined: 'joined',
     }
   }
 
   componentWillMount(){
-    console.log('this.props: ', this.props)
+    console.log('this.props: ', this.props.navigation.state.params.user)
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    console.log('user found: ', res.user.groups)
+    const date = new Date(res.user.createdAt);
+    const month = months[date.getMonth()];
     this.setState({
       name: this.props.navigation.state.params.user.username,
+
     })
   }
 

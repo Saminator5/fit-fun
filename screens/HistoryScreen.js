@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  RefreshControl
 } from 'react-native';
 
 import { ExpoConfigView } from '@expo/samples';
@@ -23,7 +24,8 @@ export default class HistoryScreen extends React.Component {
     super();
     this.state = {
       history: [],
-      points: 0
+      points: 0,
+      refreshing: false
     }
   }
 
@@ -35,10 +37,9 @@ export default class HistoryScreen extends React.Component {
     title: 'History'
   };
 
-
-
-  componentWillMount = async () => {
+  getData = async () => {
     try {
+      this.setState({ refreshing: true});
       const response = await fetch('http://fit-fun.herokuapp.com/user/history', {
         method: 'GET',
       });
@@ -51,11 +52,20 @@ export default class HistoryScreen extends React.Component {
 
       this.setState({
         history: res.history,
-        points: res.totalPoints.total
+        points: res.totalPoints.total,
+        refreshing: false
       })
 
     }  catch (e) {
       console.log('error: ', e)
+    }
+  }
+
+  componentDidMount = async () => {
+    try {
+      await this.getData();
+    } catch (e) {
+      console.log("error", e)
     }
   }
 
@@ -65,7 +75,13 @@ export default class HistoryScreen extends React.Component {
     return (
       <View style={{flex: 1}}>
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
-        <Content style={{flex: 1}}>
+        <Content style={{flex: 1}}
+          refreshControl={
+         <RefreshControl
+           refreshing={this.state.refreshing}
+           onRefresh={this.getData.bind(this)}
+         />
+       }>
           {/* <View style={{flex: 2, marginLeft: 5}}>
             <TouchableOpacity onPress={() => this.back()}><Icon name='arrow-back' /></TouchableOpacity>
           </View> */}
@@ -85,6 +101,7 @@ export default class HistoryScreen extends React.Component {
             this.state.history.map((activity, id) => {
               const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
               let date = new Date(activity.createdAt);
+
               console.log('date: ', date)
               return <Card key={id}>
                 <CardItem>

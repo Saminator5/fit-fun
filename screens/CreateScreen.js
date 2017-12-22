@@ -9,9 +9,10 @@ import {
   Picker,
   TextInput,
 } from 'react-native';
+import {NavigationActions} from 'react-navigation';
 
 import DatePicker from 'react-native-datepicker'
-
+import MainTabNavigator from '../navigation/MainTabNavigator';
 
 import styles from '../styles.js'
 import { ExpoConfigView } from '@expo/samples';
@@ -23,7 +24,7 @@ export default class CreateScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      type: 'cardio',
+      name: 'cardio',
       rigor: 'casual',
       hours: 0,
       minutes: 0,
@@ -31,11 +32,9 @@ export default class CreateScreen extends React.Component {
       createGroup: false,
       switchValue: false,
       publicValue: true,
-      state: 'Arizona',
       groupName: '',
       description: '',
-      mStatement: '',
-      date: '2016-05-15',
+      date: '2017-12-22',
       url: '',
     }
   }
@@ -50,7 +49,7 @@ export default class CreateScreen extends React.Component {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          type: this.state.type,
+          name: this.state.name,
           duration: this.state.minutes + (60 * this.state.hours),
           rigor: this.state.rigor
         }),
@@ -58,6 +57,20 @@ export default class CreateScreen extends React.Component {
 
       const res = await response.json();
       console.log('res: ', res)
+      this.setState({  name: 'cardio',
+        rigor: 'casual',
+        hours: 0,
+        minutes: 0,
+        createActivity: true,
+      createGroup: false})
+
+      const navigationObj = NavigationActions.navigate({
+        routeName: 'Profile',
+        action: NavigationActions.navigate({ routeName: 'HistoryScreen'})
+      });
+
+      this.props.navigation.dispatch(navigationObj);
+
     }  catch (e) {
       console.log('error: ', e)
     }
@@ -70,7 +83,7 @@ export default class CreateScreen extends React.Component {
     console.log('state: ', this.state)
 
     try {
-      const response = await fetch('http://fit-fun.herokuapp.com/new/group', {
+      await fetch('http://fit-fun.herokuapp.com/new/group', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -84,8 +97,11 @@ export default class CreateScreen extends React.Component {
           startDate: date
         }),
       });
-      const res = await response.json();
-      console.log('res: ', res)
+
+      this.setState({groupName: '', description: '', publicValue: true, date: '2017-12-22', createActivity: true, createGroup: false})
+      this.props.navigation.navigate('MyGroupsScreen');
+
+
     } catch(e){
       console.log('error: ', e)
     }
@@ -147,18 +163,6 @@ export default class CreateScreen extends React.Component {
                       maxLength = {120}/>
                     </Item>
                   </View>
-                  <View style={styles.element}>
-                    <Item stackedLabel>
-                      <Label style={styles.labels}>Mission Statement (optional)</Label>
-                      <Input
-                        value={this.state.mStatement}
-                        onChangeText={(mStatement) => this.setState({mStatement})}
-                        editable = {true}
-                        numberOfLines = {4}
-                        style={styles.phFontSize}
-                        maxLength = {35}/>
-                      </Item>
-                    </View>
 
                     <View style={styles.element}>
                       <Item stackedLabel>
@@ -180,68 +184,6 @@ export default class CreateScreen extends React.Component {
                         }
                       </Button>
                     </View>
-                    <View>
-                      <Text style={styles.title}>State:</Text>
-                      <Picker
-                        style={styles.picker} itemStyle={styles.pickerItem}
-                        selectedValue={this.state.state}
-                        onValueChange={(itemValue) => {
-                          console.log('itemValue: ', itemValue)
-                          this.setState({state: itemValue})
-                        }}
-                        >
-                          <Picker.Item label="Alabama" value={"Alabama"} />
-                          <Picker.Item label="Alaska" value="Alaska" />
-                          <Picker.Item label="Arizona" value={"Arizona"} />
-                          <Picker.Item label="Arkansas" value={"Arkansas"} />
-                          <Picker.Item label="California" value={"California"} />
-                          <Picker.Item label="Colorado" value={"Colorado"} />
-                          <Picker.Item label="Connecticut" value={"Connecticut"} />
-                          <Picker.Item label="Delaware" value={"Delaware"} />
-                          <Picker.Item label="Florida" value={"Florida" }/>
-                          <Picker.Item label="Georgia" value={"Georgia"} />
-                          <Picker.Item label="Hawaii" value={"Hawaii"} />
-                          <Picker.Item label="Idaho" value={"Idaho"} />
-                          <Picker.Item label="Illinois" value={"Illinois"} />
-                          <Picker.Item label="Iowa" value={"Iowa"} />
-                          <Picker.Item label="Indiana" value={"Indiana"} />
-                          <Picker.Item label="Indiana" value={"Indiana"} />
-                          <Picker.Item label="Kansas" value={"Kansas"} />
-                          <Picker.Item label="Kentucky" value={"Kentucky"} />
-                          <Picker.Item label="Louisiana" value={"Louisiana"} />
-                          <Picker.Item label="Maine" value={"Maine"} />
-                          <Picker.Item label="Maryland" value={"Maryland"} />
-                          <Picker.Item label="Massachusetts" value={"Massachusetts"} />
-                          <Picker.Item label="Michigan" value={"Michigan"} />
-                          <Picker.Item label="Minnesota" value={"Minnesota"} />
-                          <Picker.Item label="Mississippi" value={"Mississippi"} />
-                          <Picker.Item label="Missouri" value={"Missouri"} />
-                          <Picker.Item label="Montana" value={"Montana"} />
-                          <Picker.Item label="Nebraska" value={"Nebraska"} />
-                          <Picker.Item label="Nevada" value={"Nevada"} />
-                          <Picker.Item label="New Hampshire" value={"New-Hampshire"} />
-                          <Picker.Item label="New Jersey" value={"New-Jersey"} />
-                          <Picker.Item label="New Mexico" value={"New-Mexico"} />
-                          <Picker.Item label="New York" value={"New-York"} />
-                          <Picker.Item label="North Carolina" value={"North-Carolina"} />
-                          <Picker.Item label="North Dakota" value={"North-Dakota"} />
-                          <Picker.Item label="Ohio" value={"Ohio"} />
-                          <Picker.Item label="Oklahoma" value={"Oklahoma"} />
-                          <Picker.Item label="Oregon" value={"Oregon"} />
-                          <Picker.Item label="Pennsylvania" value={"Pennsylvania"} />
-                          <Picker.Item label="South Carolina" value={"South-Carolina"} />
-                          <Picker.Item label="South Dakota" value={"South-Dakota"} />
-                          <Picker.Item label="Tennessee" value={"Tennessee"} />
-                          <Picker.Item label="Texas" value={"Texas"} />
-                          <Picker.Item label="Utah" value={"Utah"} />
-                          <Picker.Item label="Vermont" value={"Vermont"} />
-                          <Picker.Item label="Virginia" value={"Virginia"} />
-                          <Picker.Item label="Washington" value={"Washington"} />
-                          <Picker.Item label="West Virginia" value={"West-Virginia"} />
-                          <Picker.Item label="Wisconsin" value={"Wisconsin"} />
-                          <Picker.Item label="Wyoming" value={"Wyoming"} />
-                        </Picker>
-                      </View>
 
                       <DatePicker
                         style={{width: 200}}
@@ -280,12 +222,12 @@ export default class CreateScreen extends React.Component {
                     <View>
                       <View style={{flex: 5, justifyContent: 'space-between'}}>
                         <View style={{flex: 1}}>
-                          <Text style={styles.title}>Type:</Text>
+                          <Text style={styles.title}>Name:</Text>
                           <Picker
                             style={styles.picker}
                             itemStyle={styles.pickerItem}
-                            selectedValue={this.state.type}
-                            onValueChange={(itemValue) => this.setState({type: itemValue})}
+                            selectedValue={this.state.name}
+                            onValueChange={(itemValue) => this.setState({name: itemValue})}
                             >
                               <Picker.Item label="Cardio" value="cardio" />
                               <Picker.Item label="Strength Training" value="strength-training" />

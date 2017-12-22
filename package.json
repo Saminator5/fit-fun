@@ -22,7 +22,7 @@
     "react-native-pathjs-charts": "0.0.33",
     "react-native-photo-upload": "^1.1.1",
     "react-native-share": "^1.0.23",
-    "react-navigation": "^1.0.0-beta.21"
+    "react-navigation": "^1.0.0-beta.22"
   },
   "devDependencies": {
     "jest-expo": "^23.0.0"
