@@ -16,22 +16,21 @@ import { ExpoConfigView } from '@expo/samples';
 import { List, ListItem, Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Segment, Card, CardItem, Left, Body, Right } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
+const resizeMode = 'cover';
+
 export default class ProfileScreen extends React.Component {
 
   constructor() {
     super();
     this.state = {
-      user: {}
+      user: {},
+      friends: [{username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}, {username: 'Samuel Lefcourt'}]
     }
   }
 
   static navigationOptions = {
     header: null
   };
-
-    takeMeTo = (str) => {
-      this.props.navigation.navigate(str)
-    }
 
     logout = async () => {
       try {
@@ -56,6 +55,7 @@ export default class ProfileScreen extends React.Component {
     }
 
     render() {
+      const _this = this;
       return (
 
         <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
@@ -82,6 +82,7 @@ export default class ProfileScreen extends React.Component {
                 </View>
               </ListItem>
               <ListItem
+                onPress={() => {this.props.navigation.navigate('FriendsScreen', {})}}
                 style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
                 <Text style={styles.fontColor}>
                   My Friends
@@ -92,99 +93,27 @@ export default class ProfileScreen extends React.Component {
               </ListItem>
 
               <ScrollView
-                   style={{borderWidth: 2, borderColor: 'black', marginLeft: 12}}
+                   style={{borderWidth: 1, borderColor: 'black', marginLeft: 12, maxHeight: 65}}
                    horizontal={true}
                    scrollEnabled={true}>
 
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
-                   <View style={{paddingRight: 10}}>
-                     <Thumbnail style={{width: 65, height: 65}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
-                       <Text ellipsizeMode='tail'
-                         numberOfLines={1}
-                         style={{width: 65, fontSize: 12, fontWeight: 'bold'}}>Lebron James is a great basketball player</Text>
-                   </View>
+                   {this.state.friends.length ? this.state.friends.map((friend, id) => {
+                     return  <TouchableOpacity onPress={() => {
+                       console.log('PRESSED A USER')
+                       _this.props.navigation.navigate('UserScreen', {id})
+                     }
+                     } key={id} style={{paddingRight: 10}}>
+                        <Thumbnail style={{width: 50, height: 50}} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/LeBron_James_%2831944491583%29.jpg'}} />
+                          <Text ellipsizeMode='tail'
+                            numberOfLines={1}
+                            style={{maxWidth: 50, fontSize: 12, fontWeight: 'bold'}}>{friend.username}</Text>
+                      </TouchableOpacity>
+                    }) : <Text>You have no friends ;/</Text>}
                  </ScrollView>
 
 
               <ListItem
-                onPress={() => {this.takeMeTo('History')}}
+                onPress={() => {this.props.navigation.navigate('HistoryScreen', {})}}
                 style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
                 <Text style={styles.fontColor}>
                   My History
@@ -193,22 +122,13 @@ export default class ProfileScreen extends React.Component {
                   <Icon ios='ios-book' android="md-book" style={styles.icons} />
                 </View>
               </ListItem>
-              <ListItem
-                onPress={() => {this.takeMeTo('Groups')}}
-                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
-                <Text style={styles.fontColor}>
-                  My Groups
-                </Text>
-                <View style={{flex: 1,alignItems: 'flex-end'}}>
-                  <Icon ios='ios-people' android="md-people" style={styles.icons}/>
-                </View>
-              </ListItem>
 
               <ListItem
                 style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}
+                onPress={() => {this.props.navigation.navigate('TrophyScreen', {})}}
                 >
                   <Text style={styles.fontColor}>
-                    My Achievements
+                    My Trophies
                   </Text>
                   <View style={{flex: 1,alignItems: 'flex-end'}}>
                     <Icon ios='ios-trophy' android="md-trophy" style={styles.icons}/>

@@ -17,7 +17,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 
 
 
-export default class BrowseScreen extends React.Component {
+export default class MyGroupsScreen extends React.Component {
   constructor() {
     super();
     this.state = {

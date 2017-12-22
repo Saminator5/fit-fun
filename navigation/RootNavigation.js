@@ -9,6 +9,10 @@ import ProfileScreen from '../screens/ProfileScreen';
 import GroupScreen from '../screens/GroupScreen';
 import InfoScreen from '../screens/InfoScreen';
 import HistoryScreen from '../screens/HistoryScreen';
+import FriendsScreen from '../screens/FriendsScreen';
+import MyGroupsScreen from '../screens/MyGroupsScreen';
+import TrophyScreen from '../screens/TrophyScreen';
+import UserScreen from '../screens/UserScreen';
 
 const RootStackNavigator = StackNavigator(
   {
@@ -31,10 +35,23 @@ const RootStackNavigator = StackNavigator(
       screen: InfoScreen
     },
 
-    History: {
+    HistoryScreen: {
       screen: HistoryScreen
     },
 
+    FriendsScreen: {
+      screen: FriendsScreen
+    },
+
+    MyGroupsScreen: {
+      screen: MyGroupsScreen
+    },
+    TrophyScreen: {
+      screen: TrophyScreen
+    },
+    UserScreen: {
+      screen: UserScreen
+    }
   },
   {
     navigationOptions: () => ({

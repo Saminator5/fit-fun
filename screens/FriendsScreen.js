@@ -16,7 +16,7 @@ import { ExpoConfigView } from '@expo/samples';
 import { List, ListItem, Container, Header, Content, Button, Icon, Text, Item, Input, Form, Label, Thumbnail, Segment, Card, CardItem, Left, Body, Right } from 'native-base';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
-export default class ActivityScreen extends React.Component {
+export default class FriendsScreen extends React.Component {
 
   constructor() {
     super();
@@ -30,7 +30,7 @@ export default class ActivityScreen extends React.Component {
   }
 
   static navigationOptions = {
-    header: null
+    title: 'Friends'
   };
 
   render() {
