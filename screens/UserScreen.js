@@ -17,7 +17,7 @@ import { Container, Header, Content, Button, Icon, Text, Item, Input, Form, Labe
 import { Col, Row, Grid } from 'react-native-easy-grid';
 
 
-export default class InfoScreen extends React.Component {
+export default class UserScreen extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -27,14 +27,12 @@ export default class InfoScreen extends React.Component {
   }
 
   componentWillMount(){
-    console.log('this.props: ', this.props)
-    this.setState({
-      name: this.props.navigation.state.params.user.username,
-    })
+    console.log('user props: ', this.props);
+
   }
 
   static navigationOptions = {
-    title: 'Info'
+    title: 'User'
   };
 
   render() {

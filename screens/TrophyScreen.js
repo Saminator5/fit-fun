@@ -24,18 +24,13 @@ export default class GroupScreen extends React.Component {
     }
   }
 
-  back(){
-    this.props.navigation.goBack()
-  }
-
   static navigationOptions = {
-    title: 'Achievements',
+    title: 'Trophies',
   };
 
   render() {
     return (
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}} >
-        <Button style={{fontSize: 10}} onPress={() => this.back()}><Text>Back</Text></Button>
         <Content style={{display: 'flex'}}>
 
         </Content>

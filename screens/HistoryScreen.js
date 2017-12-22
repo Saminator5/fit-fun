@@ -31,6 +31,10 @@ export default class HistoryScreen extends React.Component {
     this.props.navigation.goBack()
   }
 
+  static navigationOptions = {
+    title: 'History'
+  };
+
 
 
   componentWillMount = async () => {
@@ -60,9 +64,12 @@ export default class HistoryScreen extends React.Component {
     * content, we just wanted to give you a quick view of your config */
     return (
       <View style={{flex: 1}}>
-      <Button onPress={() => this.back()}><Text>Back</Text></Button>
       <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
         <Content style={{flex: 1}}>
+          {/* <View style={{flex: 2, marginLeft: 5}}>
+            <TouchableOpacity onPress={() => this.back()}><Icon name='arrow-back' /></TouchableOpacity>
+          </View> */}
+
           <View style={{alignSelf: 'flex-end', marginRight: 5, flexDirection: 'row'}}>
             <Text style={{fontWeight: 'bold', fontSize: 25, textAlign: 'right'}}>
               Points:
