@@ -96,7 +96,7 @@ export default class BrowseScreen extends React.Component {
     const resizeMode = 'cover';
     console.log('length: ', this.state.groups.length)
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9', paddingTop: 20}}>
         <Content style={{flex: 1}}
           refreshControl={
          <RefreshControl

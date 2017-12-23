@@ -93,7 +93,7 @@ export default class GroupScreen extends React.Component {
     console.log('this.state.group.description: ', this.state.group.description);
 
     return (
-      <Container style={{display: 'flex', flexDirection: 'column', backgroundColor: '#A3CDD3'}} >
+      <Container style={{display: 'flex', flexDirection: 'column', backgroundColor: '#D2E7E9'}} >
         <View style={{display: 'flex', flex: 1, flexDirection: 'column'}}>
           <View style={{flex: 2}}>
             <Card style={{minHeight: 100, marginRight: 2, marginLeft: 2, display: 'flex', flexDirection: 'row'}}>

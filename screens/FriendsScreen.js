@@ -59,7 +59,7 @@ export default class FriendsScreen extends React.Component {
 
   render() {
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', flex: 1}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9', flex: 1}}>
         <View style={{flex: 1, display: 'flex', flexDirection: 'column'}}>
           {this.state.friends.length ?
             this.state.friends.map((friend, id) => {

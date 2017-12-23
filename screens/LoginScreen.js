@@ -93,55 +93,20 @@ export default class LoginScreen extends React.Component {
     const resizeMode = 'cover';
 
     return (
-      <Container style={{display: 'flex', flex: 1, alignItems: 'center', flexDirection: 'row'}}>
-        <View
-          style={{
-            flex: 1,
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%'
-          }}
-          >
-            <Image
-              style={{
-                flex: 1,
-                resizeMode,
-                justifyContent: 'center',
-              }}
-              source={{uri: 'https://media.aws.iaaf.org/media/LargeL/5269cee8-be8a-4c3c-8ec1-9e784aecf6b2.jpg?v=1443549257'}}
-            />
+      <Container style={{display: 'flex', flex: 1, alignItems: 'center', flexDirection: 'row', backgroundColor: 'white'}}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <View style={{flex: 1}}>
           </View>
-          <Content style={{flex: 1}}>
-
-            <View
-              style={{
-                flex: 1,
-                width: '100%',
-                height: '100%',
-              }}
-              >
-
-                <View
-                  style={{
-                    flex: 1,
-                    justifyContent: 'center',
-                  }}
-                  >
-                    <View style={{paddingTop: 10}}>
-                      <Button
-                        block
-                        onPress={this._handleFacebookLogin.bind(this)}
-                        style={{ backgroundColor: '#A3CDD3'}}
-                        >
-                          <Text style={{ color: '#316366'}}>Login with Facebook</Text>
-                        </Button>
-                      </View>
-                    </View>
-                  </View>
-                </Content>
-              </Container>
-            )
-          }
-        }
+          <View style={{flex: 3}}>
+            <Image style={{minWidth: 300, minHeight: 300}} source={{uri: 'https://s9.postimg.org/yjfcb9ar3/Logo-_New.png'}}/>
+          </View>
+          <View style={{paddingTop: 10, flex: 1}}>
+            <Button block onPress={this._handleFacebookLogin.bind(this)} style={{ backgroundColor: '#A3CDD3'}}>
+              <Text style={{ color: 'white'}}>Login with Facebook</Text>
+            </Button>
+          </View>
+        </View>
+      </Container>
+    )
+  }
+}

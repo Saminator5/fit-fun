@@ -64,10 +64,10 @@ export default class UserScreen extends React.Component {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3'}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9'}}>
         <View style={{flex: 2,  flexDirection: 'column', justifyContent: 'center', alignContent: 'space-between'}}>
           <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2, padding: 2}}>
-            <Image style={{width: 120, height: 120, borderRadius: 60, marginTop: 10, borderWidth: 3}} source={{uri: this.state.user.img}} />
+            <Image style={{width: 120, height: 120, borderRadius: 60, marginTop: 10, borderWidth: 3, borderColor: 'white'}} source={{uri: this.state.user.img}} />
           </View>
 
           <View style={{flex: 3, flexDirection: 'column', marginTop: 10, justifyContent: 'space-between', alignContent: 'space-between'}}>
@@ -82,10 +82,10 @@ export default class UserScreen extends React.Component {
               <Item style={{display: 'flex',  flexDirection: 'column'}}>
                 <View style={{flexDirection: 'row'}}>
                 <Text>Groups (</Text>
-                <Text style={styles.userScreenFont}> {this.state.user.hasOwnProperty('groups') ? this.state.user.groups.length : '...'})</Text>
+                <Text> {this.state.user.hasOwnProperty('groups') ? this.state.user.groups.length : '...'})</Text>
               </View>
                   <ScrollView
-                    style={{marginLeft: 12, backgroundColor: 'white'}}
+                    style={{marginLeft: 12}}
                     horizontal={true}
                     scrollEnabled={true}>
 
@@ -104,9 +104,9 @@ export default class UserScreen extends React.Component {
               <View style={{flex: 0.5, marginTop: 7, justifyContent: 'flex-end'}}>
                 <Button
                   block
-                  style={{ backgroundColor: '#545D5E'}}
+                  style={{ backgroundColor: '#EE524F'}}
                   >
-                    <Text style={{ color: 'black'}}>Invite</Text>
+                    <Text >Invite</Text>
                   </Button>
                 </View>
               </View>

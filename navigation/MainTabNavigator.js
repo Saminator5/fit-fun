@@ -70,7 +70,10 @@ export default MainTabNavigator = TabNavigator(
     tabBarPosition: 'bottom',
     animationEnabled: false,
     swipeEnabled: false,
-    initialRouteName: 'Profile'
+    initialRouteName: 'Profile',
+    tabBarOptions: {
+      activeTintColor: '#ECC776'
+    }
   }
 );
 

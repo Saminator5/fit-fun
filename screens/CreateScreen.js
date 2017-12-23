@@ -171,7 +171,7 @@ export default class CreateScreen extends React.Component {
                       }
                     </Button>
                   </Item>
-                  <Item style={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+                  <Item style={{display: 'flex', flexWrap: 'wrap'}}>
                     <Label>Start of Tournament:</Label>
                     <DatePicker
                       style={{width: 200}}

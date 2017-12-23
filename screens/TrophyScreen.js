@@ -47,7 +47,7 @@ export default class GroupScreen extends React.Component {
 
   render() {
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}} >
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9', paddingTop: 20}} >
         <Content style={{display: 'flex'}}>
           {this.state.trophies.length
             ? <Text>You won a trophy!</Text>

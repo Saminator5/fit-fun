@@ -62,9 +62,9 @@ export default class InfoScreen extends React.Component {
     /* Go ahead and delete ExpoConfigView and replace it with your
     * content, we just wanted to give you a quick view of your config */
     return (
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3'}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9'}}>
         <View style={{flex: 1}}>
-          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2}}>
+          <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center', flex: 2, marginTop: 7}}>
             <View style={{alignSelf: 'center'}}>
               <Image style={{width: 120, height: 120, borderRadius: 60}} source={{uri: this.state.user.img}} />
             </View>
@@ -91,6 +91,7 @@ export default class InfoScreen extends React.Component {
           </View>
           <Button
             block
+            style={{backgroundColor: '#EE524F'}}
             // onPress={() => this.forceTournament()}
             >
               <Text>Delete my account</Text>

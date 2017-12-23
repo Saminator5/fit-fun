@@ -78,22 +78,22 @@ export default class ProfileScreen extends React.Component {
       const _this = this;
       return (
 
-        <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3',flex: 1}}>
+        <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9',flex: 1}}>
           <View style={{flex: 1,  marginTop: 45}}>
             <View style={{alignItems: 'center', flex: 2, justifyContent: 'space-between'}}>
               {this.props.navigation.state.params.user.user.username ? <Text style={[{fontWeight: 'bold'}, styles.fontColor]}>
                 {this.props.navigation.state.params.user.user.username}  </Text> : <Text>Loading...</Text>}
 
               {this.props.navigation.state.params.user.user.img ?
-                <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: this.props.navigation.state.params.user.user.img }}/>
+                <Image style={{width: 120, height: 120, borderRadius: 60, borderWidth: 3, borderColor: 'white'}} source={{ uri: this.props.navigation.state.params.user.user.img }}/>
                 :
-                <Image style={{width: 120, height: 120, borderRadius: 60}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2'}} />
+                <Image style={{width: 120, height: 120, borderRadius: 60, borderWidth: 3, borderColor: 'white'}} source={{ uri: 'https://cdn1.bigcommerce.com/server5600/ovem0imu/products/906/images/22492/frontier-fort-with-swing-set-28-2005-02__80409.1498267018.1280.1280.jpg?c=2'}} />
               }
             </View>
             <List style={{flex: 3, marginBottom: 1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between'}}>
               <ListItem
                 onPress={() => {this.props.navigation.navigate('InfoScreen', {user: this.props.navigation.state.params.user.user})}}
-                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: 'black'}}>
+                style={{flex: 1, backgroundColor: 'transparent', borderColor: 'black'}}>
                 <Text style={styles.fontColor}>
                   My Info
                 </Text>
@@ -104,7 +104,7 @@ export default class ProfileScreen extends React.Component {
               </ListItem>
               <ListItem
                 onPress={() => {this.props.navigation.navigate('FriendsScreen', {})}}
-                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
+                style={{flex: 1, backgroundColor: 'transparent', borderColor: '#101112'}}>
                 <Text style={styles.fontColor}>
                   My Friends
                 </Text>
@@ -134,7 +134,7 @@ export default class ProfileScreen extends React.Component {
 
               <ListItem
                 onPress={() => {this.props.navigation.navigate('HistoryScreen', {})}}
-                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}>
+                style={{flex: 1, backgroundColor: 'transparent', borderColor: '#101112'}}>
                 <Text style={styles.fontColor}>
                   My History
                 </Text>
@@ -144,7 +144,7 @@ export default class ProfileScreen extends React.Component {
               </ListItem>
 
               <ListItem
-                style={{flex: 1, backgroundColor: '#A3CDD3', borderColor: '#101112'}}
+                style={{flex: 1, backgroundColor: 'transparent', borderColor: '#101112'}}
                 onPress={() => {this.props.navigation.navigate('TrophyScreen', {})}}
                 >
                   <Text style={styles.fontColor}>
@@ -158,7 +158,7 @@ export default class ProfileScreen extends React.Component {
               <View style={{flex: 1, justifyContent: 'flex-end'}}>
                 <Button full style={{marginTop: 2, backgroundColor: '#EE524F'}}
                   onPress={() => this.logout()}>
-                  <Text>Logout</Text>
+                  <Text style={{color: 'white'}}>Logout</Text>
                 </Button>
               </View>
             </View>

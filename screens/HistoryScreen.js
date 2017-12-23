@@ -74,7 +74,7 @@ export default class HistoryScreen extends React.Component {
     * content, we just wanted to give you a quick view of your config */
     return (
       <View style={{flex: 1}}>
-      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#A3CDD3', paddingTop: 20}}>
+      <Container style={{display: 'flex', flexDirection: 'row', backgroundColor: '#D2E7E9', paddingTop: 20}}>
         <Content style={{flex: 1}}
           refreshControl={
          <RefreshControl
@@ -103,7 +103,7 @@ export default class HistoryScreen extends React.Component {
               return <Card key={id}>
                 <CardItem>
                   <Left>
-                    <Thumbnail source={{uri: 'https://i.imgur.com/RjXZTgw.jpg'}} />
+                    <Thumbnail source={{uri: 'https://s9.postimg.org/veqw9ld27/200px-_Sport_balls.svg.png'}} />
                     <Body>
                       <Text style={{fontWeight: 'bold'}}>{activity.name}</Text>
                       <Text>{parseInt(activity.duration/60)} hr {activity.duration % 60} minutes</Text>
